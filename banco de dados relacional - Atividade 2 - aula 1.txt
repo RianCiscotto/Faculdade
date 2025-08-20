@@ -1,0 +1,59 @@
+Banco de Dados Relacionais
+Aluno: Rian Ciscotto Franco Pimenta
+
+
+Aula 1 -
+
+Atividade:
+
+1:
+Entidade: Livro	
+Atributos: título, Autor.
+Chave primária: Código_livro
+Relacionamento: um livro pode ser emprestado para um usuário
+
+Entidade: Usuário
+Atributos: Nome, email
+Chave primária: ID_usuário
+Relacionamento: Um usuário pode pegar vários livros emprestados 
+
+Entidade: Empréstimo
+Atributos:data_retirada, data_devolucao
+Chave primária: ID_Empréstimo
+Relacionamento: cada empréstimo pode ser feito por um usuário
+
+
+
+2:
+Entidade: quarto
+Atributos: tipo_quarto, Valor_diaria
+Chave primária: ID_quarto
+Relacionamento: um quarto pode ter um ou mais hospedes
+
+Entidade: Hóspede
+Atributos: nome, telefone
+Chave primária: CPF
+Relacionamento: hospede pode fazer varias reservas
+
+Entidade: Reserva
+Atributos: data_check-in, data_check-out
+Chave primária: ID_reserva
+Relacionamento: Uma reserva pode ser feita por varios hóspedes
+
+
+
+3:
+Entidade: Curso
+Atributos: nome, carga_horaria
+Chave primária: ID_Curso
+Relacionamento: cada curso pode ter varios alunos matriculados
+
+Entidade: Aluno
+Atributos: nome, data_nascimento
+Chave primária: numero_matricula
+Relacionamento: pode se matricular em varios cursos
+
+Entidade: Matricula
+Atributos: data_matricula
+Chave primária: Id_matricula
+Relacionamento: cada matricula pode ser feita por um aluno
