@@ -7,7 +7,7 @@ Aluno: Rian Ciscotto Franco Pimenta
 4 - Dados são importantes na tomada de decisão pois eles auxiliam o usuário a obter mais informações, assim, podendo tomar uma decisão com mais estudo e fatos.
 5 - Antes do banco de dados os dados eram armazenados de forma física ou digital, porém sem relacionamento entre eles, causando problemas e redundância.
 6 - Banco de dados são usados para armazenar e organizar dados, de modo que seja mais facil e rápido seu gerenciamento e acesso
-7 -
+7 - - Banco de dados relacional: Armazena os dados em tabelas estruturadas, com colunas e linhas, usando SQL para manipulação (ex.: MySQL, PostgreSQL).Banco de dados NoSQL: Usa estruturas mais flexíveis, como documentos, chave-valor, colunas ou grafos, sendo ideal para grandes volumes de dados não estruturados (ex.: MongoDB, Cassandra).
 8 - Banco de dados relacionais: MySql e PostgreSql
 9 - Banco de dados relacionais são importantes no quesito eficiência, integridade e segurança.
 10 - O relacional possui Colunas(atributos), como 'Nome', 'Idade'. Linha(Tupla). E o valor de cada atributo. 
