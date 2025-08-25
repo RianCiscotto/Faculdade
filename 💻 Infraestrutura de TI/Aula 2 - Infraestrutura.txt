@@ -1,0 +1,154 @@
+__________________________________
+Anotações Infraestrutura - AULA 2
+__________________________________
+
+Bit = Binary digit(digito binário). Ele é a menor unidade de informações em sistemas digitais 
+
+Byte = COnjunto de 8 bits de dados, é a unidade basica para representar caracteres como letras e números.
+
+_________________________________
+
+Arquitetura de Computadores
+
+A Arquitetura de Computadores é o ramo da computação que define como o hardware e o software interagem
+
+define quais instruções podem ser executadas, como os dados são armazenados e movimentados, e de que forma a CPU, memória e periféricos se comunicam
+
+estabelece a interface entre hardware e software
+
+________________________________
+
+ARQUITETURA x ORGANIZAÇÃO
+
+Arquitetura: (o “o quê”): aspectos visíveis ao programador (conjunto de instruções, registradores, modos de endereçamento).
+
+Organização: (o “como”): como a arquitetura é implementada (pipeline, caches, interconexões, microarquitetura).
+
+________________________________
+
+ESPECIFICAÇÕES
+
+•Conjunto de Instruções (ISA): instruções que a CPU reconhece (ADD, LOAD, STORE, JMP).
+
+•Largura de palavra: número de bits processados simultaneamente (ex.: 32 bits, 64 bits).
+
+•Modos de endereçamento: como acessar dados (imediato, direto, indireto, relativo).
+
+•Número de registradores: impacta em desempenho (arquiteturas RISC usam muitos registradores).
+
+•Organização da memória: endereçamento por byte ou por palavra.
+
+•Pipeline e paralelismo: execução de múltiplas instruções ao mesmo tempo.
+
+•Hierarquia de memória: uso de caches, RAM e armazenamento secundário.
+
+_______________________________
+
+TIPOS DE ARQUITETURA
+
+Computadores:
+•Von Neumann
+•Harvard
+
+
+Processadores:
+•RISC (Reduced Instruction Set Computer)
+•CISC (Complex Instruction Set Computer)
+•MIMD / SIMD / VLIW
+
+
+Arquiteturas Especiais
+•GPU (Graphics Processing Unit): especializada em paralelismo massivo.
+•Arquiteturas Quânticas: emergentes, baseadas em qubits.
+•Arquiteturas Neuromórficas: inspiradas no cérebro humano.
+
+______________________________
+
+Von Neumann 
+
+BASE DE PRATICAMENTE TODAS AS MÁQUINAS ATUAIS
+
+
+é um conceito fundamental de arquitetura de computadores que descreve um sistema com
+os seguintes componentes principais: processador (Unidade Central de Processamento - CPU),
+memória, e dispositivos de entrada e saída (E/S)
+______________________________
+
+MODELO HARVARD
+
+Semelhante a arquitetura Von Neumann
+
+aqui também temos um processador que executa
+instruções subsequentes e dispositivos de entrada/saída. A principal diferença é a memória. Na
+arquitetura de Harvard, está dividida em dois elementos separados, o primeiro armazena dados
+e o segundo armazena o programa
+
+
+______________________________
+PROCESSADORES
+
+########################## Termos Importantes ###########################
+
+
+•CPI (Cycles per Instruction): ciclos necessários para executar uma instrução.
+
+•IPC (Instructions per Cycle): instruções executadas por ciclo.
+
+•Pipeline: divide a execução em estágios (Fetch, Decode, Execute, Memory, Writeback).
+
+•Superscalar: permite múltiplas instruções por ciclo.
+
+•Out-of-order Execution: CPU reorganiza a execução para não “ficar parada”.
+
+
+•RISC x CISC:
+• RISC → poucas instruções simples (ARM, RISC-V).
+• CISC → muitas instruções complexas (x86)
+
+________________
+
+ISA - que é a interface que define o conjunto de instruções que um processador pode executar
+________________
+
+O que é x86
+
+Criada pela intel, é uma arquitetura de conjunto de instruções.
+
+O nome vem do intel 8086.
+
+_____________________________________
+
+O que é x32
+
+32 bits processadores e sistemas operacionais que usam endereços de 32 bits
+
+Significa que podem endereçar até 4 GB de memória RAM diretamente (2³² endereços =
+4.294.967.296 bytes).
+•Baseada nos processadores Intel 80386 em diante.
+•Hoje, já é considerada limitada, pois não aproveita memórias maiores
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
