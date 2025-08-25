@@ -1,0 +1,14 @@
+Infraestrutura de TI para Engenharia de Software
+Aluno: Rian Ciscotto Franco Pimenta
+
+Exercícios:
+1 - C
+2 - C
+3 - A
+4 - B
+5 - B
+6 - Para carros autônomos é melhor a arquitetura Harvard porque sua arquitetura de memória separada para instruções e dados permite que a CPU acesse ambas simultaneamente, resultando em maior velocidade e eficiência no processamento em tempo real.
+
+7 - A principal diferença dos modelos RISC e CISC são que o RISC é a complexidade das instruções que cada processador executa, RISC utiliza instruções simples, sendo mais rápidas, já o CISC utiliza instruções complexas, podendo realizar várias operações com um única instrução, porém demora mais. Então, para sistemas de alta carga é recomendado é a CISC.
+
+8 - Isso acontece pois o processador 32 bits suporta memórias até 4gb. Uma solução seria trocar o processador de x32 por um mais atual, como o de 64 bits.
