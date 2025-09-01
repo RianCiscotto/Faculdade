@@ -1,0 +1,67 @@
+_________________________________
+
+Infraestrutura de TI - Aula 3
+
+_________________________________
+
+Os registradores são o tipo de memória mais rápido e caro que existe em um computador
+
+
+
+__________________________________
+
+Memória cache
+
+
+Cache L1, L2 e L3
+
+Cache L1 - É a menor e mais rápida, Armazena os dados que estão sendo usados neste exato momento
+
+Cache L2 - Menor e mais lenta que a l1, Atua como um segundo filtro, armazenando dados que não couberam na L1
+
+Cache L3 - Mais lenta das 3 porém ainda muito mais rapida que a ram
+
+___________________________________
+
+PRINCÍPIO DA LOCALIDADE
+
+O Princípio da Localidade é um dos conceitos mais importantes na arquitetura de computadores,
+pois ele é a razão pela qual a memória cache funciona de forma tão eficaz. Ele afirma que um
+programa de computador, durante sua execução, tende a acessar a memória de forma
+concentrada. 
+
+Ou seja, se um dado ou uma instrução foi acessada recentemente, é muito provável
+que ela seja acessada novamente em breve.
+
+Este princípio se divide em dois tipos: localidade temporal e localidade espacial
+
+___________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
