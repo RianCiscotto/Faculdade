@@ -1,0 +1,81 @@
+Select nome, curso from tabela where curso = 'engenharia'
+
+Select * from tabela where curso = 'engenharia'
+
+_____________________________________________
+
+
+BETWEEN - Where nota BETWEEN 6 and 9
+
+IN - Dentro de uma lista ---- Where curso in ('ADS', 'ENG')
+
+LIKE - Padrão de texto ---- Where nome LIKE 'A%'    (Nomes que começam com a letra A)
+
+_____________________________________________
+
+ESTRUTURA COMPLETA DO SELECT
+
+SELECT - colunas
+FROM -tabelas
+WHERE -
+GROUP BY -
+HAVING -
+ORDER BY -
+
+
+_____________________________________________
+
+
+GROUP BY -
+
+
+_____________________________________________
+
+
+
+DISTICT - Retorna apenas um valor
+
+SELECT DISTICT Curso FROM Aluno;
+
+_____________________________________________
+
+
+LIMIT - Retorna as primeiras linhas do resultado
+
+SELECT * FROM aluno LIMIT 5;
+
+
+_____________________________________________ 
+
+
+ALIAS - Deixa o resultado mais LEGÍVEL
+
+SELECT Nome AS Aluno, Nota AS Nota_final....
+
+_____________________________________________
+
+
+
+FUNÇÕES DE AGREGAÇÃO
+
+COUNT()
+SUM()
+AVG()
+MIN()
+MAX()
+
+
+_____________________________________________
+
+
+ORDEM COMPLETA DE EXECUÇÃO
+
+
+FROM - Escolhe as tabelas
+WHERE - Filtra as linhas
+GROUP BY - Agrupa os resultados
+HAVING - Filtra os grupos
+SELECT - Escolhe as colunas e cálculos
+ORDER BY - 
+LIMIT /TOP - 
+
