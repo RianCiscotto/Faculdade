@@ -1,0 +1,60 @@
+Recapitulando 
+
+DDL
+DM
+TCl
+DCL
+
+CREATE TABLE
+ALTER TABLE
+DROP TABLE
+
+__________________________________
+Manipulação do dados - 
+
+SELECT
+INSERT INTO
+UPDATE
+DELETE
+
+__________________________________
+
+
+CLÁUSULAS SQL
+
+WHERE 
+GROUP BY
+HAVING
+ORDER BY
+LIMIT
+OFFSET
+
+__________________________________
+
+
+        ***** JOINS *****
+
+São usados para combinar dados de duas ou mais tabelas em uma consulta e fazem parte da DML
+
+tabela esquerda -Logo apos o from
+tabela direita - cliente
+
+INNER - Só tras o que tem de comum entre as tabelas (juntar o que vc quer de informação das duas | Cliente.nome, pedido.id | fazer ligação das duas tabelas | SÓ TRAS O PEDIDO QUE TEM EM AMBAS)
+LEFT - A tabela esquerda completa mais o que a em comum com a direita 
+RIGHT - Toda a tabela da direita mais o que ha em comum com a da esquerda (exemplo, trás o nome do cliente mais o pedido | caso nao tiver pedido não aparece)
+FULL - Trás todas as informações das duas tabelas
+
+
+
+MYsql não aceita FULL JOIN - UNION - ele tras o da direita e esquerda
+            ****** LEFT JOIN | UNION | RIGHT JOIN ******
+__________________________________
+
+*****  COLOCAR CHAVE ESTRANGEIRA NAS TABELAS  *****
+
+__________________________________
+
+
+
+
+
