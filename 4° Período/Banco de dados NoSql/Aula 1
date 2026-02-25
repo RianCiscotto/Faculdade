@@ -1,1 +1,81 @@
+Banco de Dados não Relacionais
+
+História
+Evolução
+Classificação dos bancos
+grafo
+Bancos de dados orientados a conteúdo
+
+
+_________________________________________________
+
+Um Boeing 737 gera 240 terabytes de dados por voo nos EUA
+
+O relacional não suporta tantos dados como esse
+
+_________________________________________________
+
+Para utilizar esses dados precisamos de ferramentas, aí entra o NoSql (existe desde 1960)(Não tinha muita necessidade na época)
+
+_________________________________________________
+
+Not Only Sql - NoSql
+
+_________________________________________________
+
+
+Existem 4 tipos de bancos de dados NoSql principais e mais utilizados no mercado hoje:
+
+Chave-Valor - MemcaheD, Riak, Redis
+
+Grafos - Sesame, Neo4j
+
+Colunas - Cassandra, Hbase
+
+Documento - MongoDB, CouchDB
+
+_________________________________________________
+
+NoSql distribui dados por clusters (SGBDs sobrem muito em performance quando executa consultas com joins)
+
+O nosql evita os joins automaticamente
+
+_________________________________________________
+
+DISPONIBILIDADE - o nosql prioriza isso.
+
+Mesmo que caia um servidor o outro deve ta pronto pra subir, o usuario nem percebe que caiu. O nosql permite isso. o cluster está apto a continuar o trabalho sem perda de dados automaticamente.
+
+
+_________________________________________________
+
+TEOREMA CAP 
+
+C - Consistência
+Todos os n´s retornam os mesmos dados ao mesmo tempo
+
+A - Disponibilidade
+O sistema responde smepre ás requisições
+
+P - Tolerância de partições
+O sistema continua funcionando mesmo com falhas de rede
+
+O sistema pode ser:
+(CP)
+(AP)
+(CA)
+
+Só funciona quando não há partições, ou seja, sistemas centralizados / não distribuidos
+
+________________________________________________
+
+
+
+
+
+
+
+
+
+
 
