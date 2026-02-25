@@ -1,0 +1,34 @@
+EXERCÍCIOS
+
+Banco de Dados não relacional
+
+1. O que significa o termo NoSQL?
+B) Não somente SQL
+
+2. Quais são os quatro principais tipos de bancos de dados NoSQL?
+C) Chave-Valor, Colunas, Documento e Grafo
+
+3. Qual das opções representa corretamente uma vantagem do NoSQL?
+C) Alta flexibilidade e escalabilidade horizontal
+
+4. Segundo o material, empresas como Facebook, Google e Amazon adotaram
+NoSQL principalmente para:
+B) Atender novas demandas de tipos de dados e volume massivo
+
+5. Em termos de escalabilidade, bancos relacionais geralmente:
+C) Escalam apenas verticalmente
+
+6. A principal diferença entre um banco relacional e um banco NoSQL do tipo
+documento é:
+B) O NoSQL documento armazena dados como documentos (ex. JSON), e o relacional
+em tabelas
+
+7. Consultas com joins em bancos relacionais em ambientes distribuídos
+podem:
+C) Reduzir a performance por exigir integração entre nós
+
+8. O custo operacional inicial do NoSQL pode ser mais baixo porque:
+C) Possui raízes open source e pode rodar em ambientes distribuídos mais baratos
+
+
+

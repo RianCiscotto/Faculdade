@@ -1,0 +1,17 @@
+EXERCÍCIO
+
+Banco de Dados não relacional
+
+ATIVIDADE
+
+Pensem em um software e diga qual BD serial o ideal para esse software:
+LinkedIn
+
+Qual banco usar:
+Banco Mongodb
+
+– Por quê: 
+devido sua alta escalabilidade e flexibilidade com dados não estruturados
+
+– Qual vantagem ele dá nesse cenário: 
+ele da mais desempenho, pode ser escalado para vários servidores, além de ser open source, sendo uma boa escolha para empresas reduzirem custos.
