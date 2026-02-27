@@ -4,7 +4,7 @@ _____________________________
 
 Arduino
 
-Linguagem arduino baseada em C
+Linguagem arduino baseada em C. é uma variação do C++
 
 Arduino tem sua própria IDE
 
@@ -41,5 +41,41 @@ ESP32 - tem módulos wifi e bluetooth
 ESP32 Seeed Studio
 
 
+_____________________________
+
+AutoDesk tinkercad - Software de estudos de arduino
+
+
+
+const int ledAmarelo = 8;
+const int ledVerde = ~9;
+const int ledVermelho = ~10;
+
+void setup() {
+
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+  
+  pinMode(ledVermelho, OUTPUT);
+
+}
+
+void loop() {
+  digitalWrite(ledVerde, HIGH);
+    delay(500);
+    digitalWrite(ledVerde, LOW);
+    delay(500);
+
+  digitalWrite(ledAmarelo, HIGH);
+    delay(2000);
+    digitalWrite(ledAmarelo, LOW);
+    delay(2000);
+
+  digitalWrite(ledVermelho, HIGH);
+    delay(3000);
+    digitalWrite(ledVermelho, LOW);
+    delay(3000);
+
+}
 
 
