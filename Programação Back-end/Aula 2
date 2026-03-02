@@ -1,1 +1,114 @@
+________________________________
 Aula 2
+________________________________
+
+******* API -  *******
+
+É um conjunto de regras, padrões e protocolos que permite a comunicação e troca de dados entre diferentes softwares ou sistemas
+________________________________
+
+******* API REST - *******
+
+é um tipo específico de API que segue as restrições arquiteturais do REST (Representacional State Transfer), utilizando protocolos 
+web como HTTP e métodos padronizados (GET, POST, PUT, DELETE) para gerenciar dados
+________________________________
+
+******* RestFul - *******
+
+é uma interface de programação que permite a troca de informações entre sistemas via internet, baseando-se no estilo arquitetônico REST
+________________________________
+
+POST, GET, PUT, PATCH e DELETE são métodos (verbos) do protocolo HTTP usados em Django (especialmente DRF) para realizar operações CRUD
+em APIs. Eles definem a ação desejada no servidor: Criar (POST), Ler (GET), Atualizar totalmente (PUT), Atualizar parcialmente (PATCH) ou
+Deletar (DELETE) recursos. 
+
+POST - 
+
+GET - 
+
+PUT -
+
+PATCH -
+
+DELETE -
+________________________________
+
+ ******* OUTROS MÉTODOS *******
+
+  HEAD - 
+  OPTIONS - 
+  CONNECT - 
+  TRACE - 
+
+________________________________
+
+******* STATUS CODE *******
+
+é uma resposta numérica de três dígitos enviada por um servidor ao navegador 
+(cliente) para indicar o resultado de uma solicitação, como acessar um site
+
+
+***  200 (OK): A solicitação foi bem-sucedida.
+***  301 (Movido Permanentemente): A página foi redirecionada.
+***  404 (Não Encontrado): O servidor não encontrou a página ou recurso solicitado.
+***  500 (Erro Interno do Servidor): O servidor falhou ao processar a solicitação.
+
+*****************************************************************************************
+
+********** códigos de status HTTP **********
+
+1xx: Respostas Informativas (Solicitação recebida, continua processando) 
+100 (Continue): O servidor recebeu a primeira parte da solicitação e o cliente deve continuar enviando o corpo.
+101 (Switching Protocols): O cliente pediu para mudar de protocolo e o servidor aceitou. 
+2xx: Sucesso (Solicitação recebida, entendida e aceita) 
+200 (OK): A solicitação foi bem-sucedida.
+201 (Created): A solicitação foi bem-sucedida e um novo recurso foi criado.
+202 (Accepted): A solicitação foi aceita, mas o processamento não foi concluído.
+204 (No Content): A solicitação foi processada com sucesso, mas não há conteúdo para retornar. 
+
+3xx: Redirecionamento (Ação adicional necessária) 
+301 (Moved Permanently): A página foi movida permanentemente para uma nova URL.
+302 (Found/Moved Temporarily): A página foi movida temporariamente para outra URL.
+304 (Not Modified): O recurso não foi modificado desde a última solicitação; o navegador usa o cache.
+307 (Temporary Redirect): O servidor envia essa resposta para direcionar o cliente a outra URL com o mesmo método (GET/POST). 
+
+4xx: Erros do Cliente (Solicitação contém erro ou não pode ser processada) 
+400 (Bad Request): O servidor não entendeu a solicitação devido à sintaxe inválida.
+401 (Unauthorized): A autenticação é necessária e falhou ou não foi fornecida.
+403 (Forbidden): O cliente não tem permissão de acesso ao recurso.
+404 (Not Found): O servidor não encontrou a página ou recurso solicitado.
+405 (Method Not Allowed): O método HTTP usado não é suportado por este recurso.
+408 (Request Timeout): O servidor esgotou o tempo de espera da solicitação.
+409 (Conflict): A solicitação conflita com o estado atual do servidor.
+429 (Too Many Requests): O usuário enviou muitas solicitações em um curto espaço de tempo. 
+
+5xx: Erros do Servidor (Servidor falhou ao processar a solicitação) 
+500 (Internal Server Error): O servidor falhou ao processar a solicitação.
+501 (Not Implemented): O método HTTP não é suportado pelo servidor.
+502 (Bad Gateway): O servidor, ao atuar como um gateway, recebeu uma resposta inválida do servidor upstream.
+503 (Service Unavailable): O servidor não está disponível no momento (geralmente sobrecarga ou manutenção).
+504 (Gateway Timeout): O servidor não recebeu uma resposta a tempo do servidor upstream. 
+
+______________________________________________________________________________________________________________________________
+
+******** PROJETO ********
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
