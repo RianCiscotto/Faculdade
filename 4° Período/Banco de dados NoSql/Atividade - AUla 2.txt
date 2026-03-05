@@ -1,0 +1,19 @@
+1. Dados são a matéria-prima da informação, uma informação desorganizada
+2. Informação são dados ajustados e ordenados num contexto que podemos consultar
+3. Dados são desorganizados já as informações são organizadas
+4. Ele é importante para tomar decisões mais precisas e com base na realidade
+5. Eram armazenados em meio físico como papel, fichários, etc.
+6. É o local onde dados e informações são organizadas e podem ser acessadas e manipuladas.
+7. Mariadb e Mysql
+8. Eles são importantes para guardar informações de maneira segura e confiável.
+9. Mongodb e Redis
+10.O banco de dados relacional ele organiza dados em tabelas com linhas e colunas com escalabilidade vertical, já o Nosql ele usa modelos flexíveis(documentos, chave-valor) para dados não estruturados e variáveis com escalabilidade horizontal(distribui em múltiplos servidores).
+
+
+1. Sql - Pois é um sistema simples com tabelas bem definidas
+2. Nosql - Pois um sistema assim tem um tráfego alto e o Nosql oferece alta aescalabilidade
+3. Nosql - devido sua capacidade de lidar com dados não estruturados e sua alta disponibilidade, funcionando até mesmo com falhas em um nó
+4. Sql - os dados são altamente estruturados
+5. Nosql - para consultas mais rápidas dos filmes
+
+ 
