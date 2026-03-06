@@ -79,3 +79,51 @@ void loop() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+int pot = A0;
+
+int ledVermelho = 8;
+int ledAmarelo = 9;
+
+int valor = 0;
+
+void setup() {
+  pinMode(ledVermelho, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  valor = analogRead(pot); // lê potenciômetro
+
+  Serial.println(valor);
+
+  if (valor < 400) {
+    digitalWrite(ledVermelho, HIGH);
+    digitalWrite(ledAmarelo, LOW);
+  }
+
+  else if (valor < 700) {
+    digitalWrite(ledVermelho, LOW);
+    digitalWrite(ledAmarelo, HIGH);
+  }
+
+  else {
+    digitalWrite(ledVermelho, HIGH);
+    digitalWrite(ledAmarelo, HIGH);
+  }
+
+  delay(50);
+}
+
