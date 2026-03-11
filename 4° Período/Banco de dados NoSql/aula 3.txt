@@ -1,0 +1,97 @@
+No SQL aula 3
+_____________________________________________
+Tipagem de dados
+
+A tipagem de dados em um banco de dados refere-se a classifição das informações armazenadas em colunas de tabelas
+Ela define o tipo de dado que pode ser armazenado garantindo
+INTEGRIDADE
+EFICIÊNCIA
+OTIMIZAÇÃO DE MEMÓRIA
+
+O tipo de dado influencia diretamente o banco
+
+_____________________________________________
+
+Tipos numéricos:
+
+TINYiNT
+
+
+
+
+
+FLOAT - Mais utilizado, armazena numeros de ponto flutuante com precisão
+
+DOUBLE - Mais preciso que o float
+
+DECIMAL - 
+
+_____________________________________________
+
+Tipos de dados para texto:
+
+CHAR - Strings de tamanho físico - até 255 caracteres
+
+BLOBB - arquivos de imagem
+
+
+_____________________________________________
+
+ENUM - armazenar valores de uma lista predefinida ('Pendente', 'Aprovado', 'Cancelado')
+
+CHECK - PostgreeSQL, SQL server e Oracle - Mais prático e flexivel podendo trocar valores sem alterar a tabela de fato.
+
+_____________________________________________
+
+Tipo de data e hora
+
+Date - 3 Bytes - data no formato yyyy-mm-dd
+Datetime - 8 Bytes - data e hora
+Timestamp - 4 Bytes - similar ao datetime mas baseado no UNIX TIMESTAMP
+Time - 3 Bytes - Apenas horario
+Year (mysql) - 1 Byte - Apenas ano
+______
+O timestamp no mysql só armazena datas entre
+1970 - 2038
+______
+
+_____________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
