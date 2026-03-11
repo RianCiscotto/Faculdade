@@ -57,6 +57,67 @@ ______
 
 _____________________________________________
 
+SUBQUERY
+
+Uma consulta que retorna um resultado que sera usado dentro de outra estrutura SQL
+
+******** VANTAGENS ********
+  Codigo mais organizado
+  evita junções (joins) complexos
+  Permite consultas dinãmicas
+  facilita a análise de dados
+
+
+QUANDO USAR
+Quando rpecisa calcular valores intermediarios antes
+
+
+___________________________________________________________
+
+SUBQUERY NO SELECT 
+nome salario empregados com salario_medio_geral avg salario
+
+SELECT 
+    nome, 
+    salario,
+    (SELECT ROUND(AVG(salario), 2) FROM empregados) AS salario_medio_geral
+FROM 
+    empregados;
+
+__________________________________________________________
+
+
+SUBQUERY NO FROM
+nome salario empregados com salario_medio_geral avg salario
+
+SELECT 
+    e.nome, 
+    e.salario, 
+    m.media_geral
+FROM 
+    empregados e,
+    (SELECT AVG(salario) AS media_geral FROM empregados) m;
+
+__________________________________________________________
+
+SUBQUERY NO WHERE
+nome salario empregados com salario_medio_geral avg salario
+
+SELECT nome, salario
+FROM empregados
+WHERE salario > (SELECT AVG(salario) FROM empregados);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
