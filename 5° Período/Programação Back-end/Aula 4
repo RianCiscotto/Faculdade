@@ -21,3 +21,17 @@ _______________________________________________
 
 API ViaCep - ceps dos locais
 
+_______________________________________________
+
+DOCKER - criamos um container onde tudo que fizermos(evita aquele 'na minha máquina funciona')
+
+ele tem uma documentação densa, complicada mas é uma ferramenta poderosa
+
+_______________________________________________
+
+
+VAMOS UTILIZAR O DOCKER PARA SUBIR O BANCO
+
+
+
+_______________________________________________
