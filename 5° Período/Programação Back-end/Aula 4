@@ -16,3 +16,6 @@ PUT - atualiza dados
 DELETE - remove dados
 
 ISSO CRIA UM PADRÃO QUE QUALQUER SISTEMA CONSEGUE ENTENDER
+
+API ViaCep - ceps dos locais
+
