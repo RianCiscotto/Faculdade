@@ -1,14 +1,14 @@
 O que é API?
-
+_______________________________________________
 Partes conceituais:
 Frontend
 Backend
 Banco de dados
-
+_______________________________________________
 API vive no Backend - ela expõe rotas para que o frontend possa usar o sistema
-
+_______________________________________________
 Hoje a maioria das APIs usam o padrão rest
-
+_______________________________________________
 Principais métodos:
 GET - busca dados
 POST - cria dados
@@ -16,6 +16,8 @@ PUT - atualiza dados
 DELETE - remove dados
 
 ISSO CRIA UM PADRÃO QUE QUALQUER SISTEMA CONSEGUE ENTENDER
+
+_______________________________________________
 
 API ViaCep - ceps dos locais
 
