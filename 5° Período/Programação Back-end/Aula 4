@@ -1,1 +1,18 @@
+O que é API?
 
+Partes conceituais:
+Frontend
+Backend
+Banco de dados
+
+API vive no Backend - ela expõe rotas para que o frontend possa usar o sistema
+
+Hoje a maioria das APIs usam o padrão rest
+
+Principais métodos:
+GET - busca dados
+POST - cria dados
+PUT - atualiza dados
+DELETE - remove dados
+
+ISSO CRIA UM PADRÃO QUE QUALQUER SISTEMA CONSEGUE ENTENDER
