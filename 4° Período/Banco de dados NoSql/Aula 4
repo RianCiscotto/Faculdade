@@ -75,3 +75,10 @@ Select
 from vendas
 group by tipo_volume;
 		
+______________________________________________________________________________________________________________
+
+Window functions no SQL realizam cálculos em um conjunto de linhas relacionadas à linha atual (uma "janela"), 
+sem agrupar o resultado final em uma única linha. Elas são ideais para totais acumulados, médias móveis e 
+rankings, mantendo todas as linhas originais da tabela enquanto adicionam o valor calculado. 
+______________________________________________________________________________________________________________
+
