@@ -80,3 +80,43 @@ Junta tudo no final
 SELECT alunos.nome, escola.cidade
 FROM alunos
 JOIN escola ON alunos.id = escola.aluno_id;
+___________________________________________________________
+
+
+
+
+
+
+
+💥 AGORA O SEGREDO 
+🧠 COMO SABER QUAL VAI NO FROM E QUAL NO JOIN?
+
+👉 Regra simples:
+
+FROM = tabela principal da pergunta
+
+JOIN = tabela que depende dela (tem FK)
+
+
+
+
+
+
+
+__________________________________________________________
+
+
+
+alunos → principal
+
+escola → depende (tem aluno_id)
+
+Então:
+
+FROM alunos
+JOIN escola
+
+
+
+
+
