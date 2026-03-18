@@ -1,1 +1,82 @@
+JOIN
 
+O id / aluno_id  serve só pra ligar (JOIN)
+nome, idade, cidade, etc  você usa no SELECT
+_____________________________________________________
+SELECT alunos.nome, alunos.idade, escola.cidade
+FROM alunos
+JOIN escola ON alunos.id = escola.aluno_id;
+_____________________________________________________
+alunos.id = escola.aluno_id → ligou as tabelas
+alunos.nome → pegou o nome
+alunos.idade → pegou a idade
+escola.cidade → pegou da outra tabela
+_____________________________________________________
+SELECT → o que aparece
+
+FROM → tabela inicial
+
+JOIN → adiciona outra tabela
+
+ON → faz a ligação
+
+
+
+
+
+
+
+
+
+______________________________
+**************** 1 ****************
+Sempre será assim:
+
+SELECT ...
+FROM tabela1
+JOIN tabela2 ON ...
+
+
+
+1️⃣ FROM → primeira tabela
+
+👉 normalmente a principal da pergunta
+
+Ex:
+
+“mostrar dados dos alunos...”
+
+FROM alunos
+
+______________________________
+**************** 2 ****************
+2️⃣ JOIN → outra tabela que tem ligação
+
+Ex:
+
+“…e também da escola”
+
+JOIN escola
+______________________________
+**************** 3 ****************
+👉 aqui é SEMPRE:
+
+tabela1.id = tabela2.fk
+
+Ex:
+
+ON alunos.id = escola.aluno_id
+______________________________
+
+______________________________
+**************** 4 ****************
+4️⃣ SELECT → o que mostrar (você já sabe)
+SELECT alunos.nome, escola.cidade
+______________________________
+
+
+Junta tudo no final 
+
+SELECT alunos.nome, escola.cidade
+FROM alunos
+JOIN escola ON alunos.id = escola.aluno_id;
