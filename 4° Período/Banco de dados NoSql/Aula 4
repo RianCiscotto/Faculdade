@@ -25,3 +25,53 @@ Agregação Condicional
 Leitura de Dados
 
 ______________________________________________________________________________________________________________
+
+CREATE DATABASE aula_case;
+USE aula_case;
+CREATE TABLE vendas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    vendedor VARCHAR(100),
+    produto VARCHAR(100),
+    categoria VARCHAR(50),
+    valor DECIMAL(10,2),
+    quantidade INT
+);
+INSERT INTO vendas (vendedor, produto, categoria, valor, quantidade) VALUES
+('Ana', 'Notebook', 'Eletrônicos', 4500.00, 1),
+('Bruno', 'Celular', 'Eletrônicos', 2500.00, 2),
+('Carlos', 'TV', 'Eletrônicos', 3200.00, 1),
+('Ana', 'Teclado', 'Acessórios', 300.00, 3),
+('Bruno', 'Mouse', 'Acessórios', 150.00, 5),
+('Carlos', 'Sofá', 'Móveis', 2000.00, 1),
+('Ana', 'Mesa', 'Móveis', 1200.00, 1),
+('Bruno', 'Cadeira', 'Móveis', 800.00, 2),
+('Carlos', 'Monitor', 'Eletrônicos', 1800.00, 2),
+('Ana', 'Headset', 'Acessórios', 400.00, 2);
+
+Select  vendedor, produto, valor,
+	Case 
+		when valor >= 3000 then 'ALTA VENDA'
+		when valor between 1000 and 2999 then 'MÉDIA VENDA'
+		when valor < 1000 then 'BAIXA VENDA'
+	END as classificacao
+From vendas;
+
+Select vendedor, produto, categoria
+from vendas
+order by
+	case
+		when categoria = 'Eletrônicos' then 1
+        when categoria = 'Móveis' then 2
+        else 3
+        END;
+
+
+Select 
+	case
+		when quantidade >= 3 then 'Grande Volume'
+        Else 'Pequeno Volume'
+        END as tipo_volume,
+        count(*) as total_vendads
+from vendas
+group by tipo_volume;
+		
