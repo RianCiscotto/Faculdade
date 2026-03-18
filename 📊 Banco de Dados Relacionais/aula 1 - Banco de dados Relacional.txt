@@ -1,0 +1,142 @@
+Dados - São fatos brutos, valores sem contexto que, quando organizados e processados geram informação.
+
+estruturados - tabelas
+não estruturado - imagens, audio
+
+
+importância: tomada de decisão, dados impulsionam a inovação(saúde, educaçãi, negócios), personalização de serviços e produtos
+
+* valem mais que equipámentos
+
+Dado: elementos brutos que não possuem informação
+informação: dados processados agora tendo significado
+________________________
+
+História:
+Blaise Pascal - primeira calculadora
+Herman Hollerich - tabulador
+Cartões perfurados
+Fitas perfuradas
+Discos magnéticos
+discos ópticos removíveis
+
+_______________________
+Ambientes de banco de dados
+O papel sempre foi usado para armazenar dados, grandes volumes são dificeis para serem guardados
+
+Arquivos de papel passaram para o meio digital
+
+
+_______________________
+Antes do banco de dados
+
+.
+.
+.
+.
+.
+.
+.
+_______________________
+
+
+Suas aplicações:
+Bancos
+Linhas aéreas
+Universidades
+Telecomunicação
+finanças
+vendas
+
+
+
+_______________________
+
+1960: Surgimento dos primeiros modelos de banco de dados HIERÁRQUICOS e de REDES
+
+[nome cliente][Idade][...][...][...][...]
+
+
+
+
+_______________________
+
+1970 - banco de dados RELACIONAL
+1990 - 2000 - NoSQL
+
+_______________________
+Eficiência
+Integridade
+Segurança
+
+_________________________
+TIPOS:
+
+RELACIONAL
+NoSQL
+Orientado a objetos
+
+________________________
+Tipos: 
+
+Oracle
+Mysql
+PostgreeSql
+SQLserver
+
+_______________________
+
+
+MODELAGEM DE DADOS:
+
+
+
+OBJETIVOS MODELAGEM DE DADOS:
+
+Organizar os dados de forma lógica e estruturada
+Garantir a integridade dos dados
+Facilitar o acesso e a manipulação dos dados
+Atender às necessidades do negócio
+Reduzir redundâncias e inconsistências
+Suportar a escalabilidade e manutenção
+Melhorar a tomada de decisões
+Documentar a estrutura dos dados
+
+
+_______________________
+
+MOdelo conceitual - representação grafica dos atributos, entidades e relacionamentos
+Modelo Lógico - SGBD, Representamos as entidades, atributos e relações
+Modelo físico - linguagem SQL
+
+
+_______________________
+
+MER - modelo entidade relacionamento
+
+*Representa tudo que vemos no mundo real*
+entidade
+atributos 
+chave primária
+relacionamento
+cardinalidade
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

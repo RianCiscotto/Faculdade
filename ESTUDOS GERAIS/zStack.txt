@@ -1,0 +1,15 @@
+- HTML + CSS
+
+- JavaScript
+
+- TypeScript
+
+- React
+
+- Python
+
+- Django
+
+- SQL
+
+- Git
