@@ -1,0 +1,6 @@
+anotações join:
+
+Select *                            -- o que eu quero ver na consulta
+From cliente					              -- a Tabela principal 'Começa por ela'
+inner join pedido p				          -- a tabela que quero juntar “Quero juntar com a tabela pedido”
+on cliente.id = p.cliente_id;       -- “Liga essas duas tabelas usando isso aqui”
