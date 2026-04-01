@@ -1,0 +1,266 @@
+CREATE DATABASE loja_academica;
+USE loja_academica;
+
+-- TABELAS
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(120) NOT NULL,
+    email VARCHAR(120) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    cidade VARCHAR(80) NOT NULL,
+    estado CHAR(2) NOT NULL,
+    data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(80) NOT NULL UNIQUE
+);
+
+CREATE TABLE fornecedores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(120) NOT NULL,
+    email VARCHAR(120),
+    cidade VARCHAR(80),
+    estado CHAR(2)
+);
+
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    categoria_id INT NOT NULL,
+    fornecedor_id INT NOT NULL,
+    nome VARCHAR(120) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    estoque INT NOT NULL DEFAULT 0,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+    data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_produtos_categoria
+        FOREIGN KEY (categoria_id) REFERENCES categorias(id),
+    CONSTRAINT fk_produtos_fornecedor
+        FOREIGN KEY (fornecedor_id) REFERENCES fornecedores(id)
+);
+
+CREATE TABLE pedidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    data_pedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('PENDENTE','PAGO','ENVIADO','ENTREGUE','CANCELADO') NOT NULL DEFAULT 'PENDENTE',
+    desconto DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    frete DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    CONSTRAINT fk_pedidos_cliente
+        FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
+
+CREATE TABLE itens_pedido (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL,
+    CONSTRAINT fk_itens_pedido_pedido
+        FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+    CONSTRAINT fk_itens_pedido_produto
+        FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+
+CREATE TABLE pagamentos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    forma_pagamento ENUM('PIX','CARTAO','BOLETO') NOT NULL,
+    valor_pago DECIMAL(10,2) NOT NULL,
+    data_pagamento DATETIME,
+    status_pagamento ENUM('PENDENTE','APROVADO','RECUSADO') NOT NULL DEFAULT 'PENDENTE',
+    CONSTRAINT fk_pagamentos_pedido
+        FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
+);
+
+CREATE TABLE entregas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pedido_id INT NOT NULL,
+    transportadora VARCHAR(100),
+    codigo_rastreio VARCHAR(80),
+    data_envio DATETIME,
+    data_entrega DATETIME,
+    status_entrega ENUM('AGUARDANDO_ENVIO','EM_TRANSITO','ENTREGUE','ATRASADA') NOT NULL DEFAULT 'AGUARDANDO_ENVIO',
+    CONSTRAINT fk_entregas_pedido
+        FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
+);
+-- 1 
+-- a
+CREATE INDEX idx_pedidos_cliente ON pedidos(cliente_id);
+
+CREATE INDEX idx_itens_pedido_pedido ON itens_pedido(pedido_id);
+
+CREATE INDEX idx_produtos_categoria ON produtos(categoria_id);
+
+CREATE VIEW vw_itens_detalhados AS
+SELECT 
+    itens_pedido.id,
+    pedidos.id,
+    pedidos.data_pedido,
+    clientes.nome,
+    produtos.nome,
+    categorias.nome,
+    itens_pedido.quantidade,
+    itens_pedido.preco_unitario,
+    (itens_pedido.quantidade * itens_pedido.preco_unitario)
+FROM itens_pedido
+JOIN pedidos ON itens_pedido.pedido_id = pedidos.id
+JOIN clientes ON pedidos.cliente_id = clientes.id
+JOIN produtos ON itens_pedido.produto_id = produtos.id
+JOIN categorias ON produtos.categoria_id = categorias.id;
+
+CREATE VIEW vw_total_pedidos AS
+SELECT
+    pedidos.id,
+    clientes.nome,
+    pedidos.data_pedido,
+    pedidos.status,
+    SUM(itens_pedido.quantidade * itens_pedido.preco_unitario),
+    pedidos.desconto,
+    pedidos.frete,
+    (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete)
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+GROUP BY pedidos.id;
+-- 2 
+SELECT 
+    c.nome AS nome_cliente,
+    p.id AS numero_pedido,
+    p.data_pedido,
+    (SUM(ip.quantidade * ip.preco_unitario) - p.desconto + p.frete) AS valor_final
+FROM pedidos p
+JOIN clientes c ON p.cliente_id = c.id
+JOIN itens_pedido ip ON p.id = ip.pedido_id
+WHERE p.status IN ('PAGO', 'ENTREGUE')
+GROUP BY p.id, c.nome, p.data_pedido, p.desconto, p.frete
+ORDER BY valor_final DESC;
+
+-- 3
+SELECT p.nome , c.nome , f.nome , p.preco, SUM(ip.quantidade)
+FROM produtos p
+JOIN categorias c ON p.categoria_id = c.id
+JOIN fornecedores f ON p.fornecedor_id = f.id
+JOIN itens_pedido ip ON p.id = ip.produto_id
+GROUP BY p.id, p.nome, c.nome, f.nome, p.preco
+HAVING SUM(ip.quantidade) > (
+SELECT AVG(qtd_total)
+FROM ( SELECT SUM(quantidade) AS qtd_total
+FROM itens_pedido
+GROUP BY produto_id) AS sub);
+
+-- 4 
+SELECT 
+    clientes.nome,
+    clientes.cidade,
+    COUNT(pedidos.id),
+    SUM(itens_pedido.quantidade * itens_pedido.preco_unitario)
+FROM clientes
+JOIN pedidos ON pedidos.cliente_id = clientes.id
+JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+GROUP BY clientes.id
+HAVING COUNT(pedidos.id) > 1
+ORDER BY 4 DESC;
+
+-- 5
+SELECT 
+    pedidos.id,
+    clientes.nome,
+    (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete),
+    CASE
+        WHEN (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete) >= 4000 THEN 'PEDIDO ALTO'
+        WHEN (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete) >= 2000 THEN 'PEDIDO MÉDIO'
+        ELSE 'PEDIDO BAIXO'
+    END
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+GROUP BY pedidos.id;
+
+-- 6 
+SELECT 
+    clientes.nome,
+    SUM(itens_pedido.quantidade * itens_pedido.preco_unitario),
+    RANK() OVER (ORDER BY SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) DESC)
+FROM clientes
+JOIN pedidos ON pedidos.cliente_id = clientes.id
+JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+GROUP BY clientes.id;
+
+-- 7
+SELECT 
+    categorias.nome,
+    COUNT(produtos.id),
+    AVG(produtos.preco),
+    MAX(produtos.preco),
+    MIN(produtos.preco)
+FROM categorias
+JOIN produtos ON produtos.categoria_id = categorias.id
+GROUP BY categorias.id
+HAVING AVG(produtos.preco) >
+(
+    SELECT AVG(preco) FROM produtos
+);
+
+-- 8 
+SELECT 
+    pedidos.id,
+    clientes.nome,
+    pedidos.data_pedido,
+    (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete),
+    LAG(SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete)
+    OVER (PARTITION BY clientes.id ORDER BY pedidos.data_pedido),
+    (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete)
+    - LAG(SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete)
+    OVER (PARTITION BY clientes.id ORDER BY pedidos.data_pedido)
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+GROUP BY pedidos.id;
+
+-- 9
+
+SELECT 
+    fornecedores.nome,
+    COUNT(produtos.id)
+FROM fornecedores
+JOIN produtos ON produtos.fornecedor_id = fornecedores.id
+LEFT JOIN itens_pedido ON itens_pedido.produto_id = produtos.id
+GROUP BY fornecedores.id
+HAVING SUM(itens_pedido.id IS NULL) > 0;
+
+-- 10
+
+SELECT 
+    clientes.nome,
+    pedidos.id,
+    pedidos.status,
+    pagamentos.status_pagamento,
+    entregas.status_entrega
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+LEFT JOIN pagamentos ON pagamentos.pedido_id = pedidos.id
+LEFT JOIN entregas ON entregas.pedido_id = pedidos.id;
+ 
+-- 11
+
+SELECT 
+    nome,
+    id,
+    (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete)
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+GROUP BY pedidos.id
+HAVING (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete)
+>
+(
+    SELECT AVG(total) FROM (
+        SELECT (SUM(itens_pedido.quantidade * itens_pedido.preco_unitario) - pedidos.desconto + pedidos.frete) total
+        FROM pedidos
+        JOIN itens_pedido ON itens_pedido.pedido_id = pedidos.id
+        GROUP BY pedidos.id
+    ) x
+);
+    
