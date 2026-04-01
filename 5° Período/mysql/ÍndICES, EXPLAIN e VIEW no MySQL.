@@ -1,0 +1,220 @@
+AULA 05 – ÍNDICES, EXPLAIN E VIEW (MYSQL)
+
+==================================================
+1) ÍNDICES (INDEX)
+==================================================
+
+O que é?
+Índice é uma estrutura que acelera buscas no banco.
+Funciona como o índice de um livro.
+
+Sem índice:
+- O banco lê a tabela inteira (Full Table Scan).
+
+Com índice:
+- Ele vai direto no dado.
+
+--------------------------------------------------
+Quando usar índice?
+--------------------------------------------------
+
+Use índice em colunas muito usadas em:
+- WHERE
+- JOIN
+- ORDER BY
+- GROUP BY
+
+Exemplo:
+SELECT * FROM clientes WHERE email = 'a@a.com';
+
+--------------------------------------------------
+Regra da Alta Cardinalidade
+--------------------------------------------------
+
+Crie índice em colunas com muitos valores diferentes.
+
+BOM para índice:
+- cpf
+- email
+- id
+- matricula
+
+RUIM para índice:
+- sexo
+- status
+- pago/pendente
+
+Se metade da tabela tem o mesmo valor,
+o MySQL pode ignorar o índice.
+
+--------------------------------------------------
+Índice Composto (Muito Importante)
+--------------------------------------------------
+
+CREATE INDEX idx_pedidos_cliente_data
+ON pedidos(cliente_id, data_pedido);
+
+Regra da esquerda (Leftmost Prefix):
+
+Se o índice é:
+(cliente_id, data_pedido)
+
+FUNCIONA:
+WHERE cliente_id = 10
+WHERE cliente_id = 10 AND data_pedido >= '2025-01-01'
+
+NÃO FUNCIONA:
+WHERE data_pedido = '2025-01-01'
+
+O índice sempre começa da esquerda.
+
+--------------------------------------------------
+Funções matam índice
+--------------------------------------------------
+
+ERRADO:
+WHERE YEAR(data_pedido) = 2025
+
+CERTO:
+WHERE data_pedido >= '2025-01-01'
+AND data_pedido <= '2025-12-31'
+
+Se usar função na coluna,
+o MySQL ignora o índice.
+
+--------------------------------------------------
+Índice melhora leitura, mas piora escrita
+--------------------------------------------------
+
+Mais índice =
+- INSERT mais lento
+- UPDATE mais lento
+- DELETE mais lento
+
+Porque o banco precisa atualizar o índice também.
+
+==================================================
+2) EXPLAIN
+==================================================
+
+O que é?
+Mostra como o MySQL vai executar a consulta.
+
+Uso:
+EXPLAIN SELECT * FROM clientes WHERE id = 1;
+
+Ele NÃO executa a query.
+Ele mostra o plano de execução.
+
+--------------------------------------------------
+Coluna mais importante: type
+--------------------------------------------------
+
+Do melhor para o pior:
+
+const / eq_ref → perfeito
+ref → ótimo
+range → bom
+index → médio
+ALL → péssimo (Full Table Scan)
+
+Se aparecer:
+type: ALL
+
+Significa que ele leu a tabela inteira.
+
+--------------------------------------------------
+Outras colunas importantes do EXPLAIN
+--------------------------------------------------
+
+possible_keys → índices que poderiam ser usados
+key → índice que foi escolhido
+rows → estimativa de linhas lidas
+filtered → % de linhas aproveitadas
+Extra → avisos (Using index, Using filesort etc.)
+
+--------------------------------------------------
+Importante
+--------------------------------------------------
+
+Se a tabela for pequena,
+o MySQL pode ignorar o índice.
+
+Isso é normal.
+Ele escolhe o que é mais rápido.
+
+==================================================
+3) VIEW
+==================================================
+
+O que é?
+Uma View é uma tabela virtual baseada em SELECT.
+
+Ela NÃO armazena dados.
+Ela armazena a query.
+
+Exemplo:
+
+CREATE VIEW vw_clientes_rj AS
+SELECT nome, cidade
+FROM clientes
+WHERE estado = 'RJ';
+
+Depois:
+
+SELECT * FROM vw_clientes_rj;
+
+--------------------------------------------------
+Para que serve?
+--------------------------------------------------
+
+- Simplificar consultas grandes
+- Esconder JOIN complexo
+- Segurança (mostrar só algumas colunas)
+- Padronizar relatórios
+
+--------------------------------------------------
+Importante
+--------------------------------------------------
+
+View NÃO melhora performance.
+
+Se a query base for lenta,
+a view também será lenta.
+
+Os índices precisam estar nas tabelas reais.
+
+--------------------------------------------------
+Views que não podem alterar dados
+--------------------------------------------------
+
+Se a View tiver:
+- JOIN (na maioria dos casos)
+- GROUP BY
+- SUM
+- COUNT
+- DISTINCT
+- UNION
+
+Ela vira somente leitura (read-only).
+
+==================================================
+RESUMÃO FINAL
+==================================================
+
+Índice:
+- Acelera busca
+- Use em WHERE e JOIN
+- Alta cardinalidade é melhor
+- Função no WHERE mata índice
+- Mais índice = escrita mais lenta
+
+EXPLAIN:
+- Mostra como a query será executada
+- type = ALL é ruim
+- Verifique se o índice está sendo usado
+
+VIEW:
+- É um SELECT salvo
+- Não melhora performance
+- Serve para organização e segurança
