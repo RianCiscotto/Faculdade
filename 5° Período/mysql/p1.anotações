@@ -1,0 +1,82 @@
+VIEW
+
+__________________________________________
+BASE DA CRIAÇÃO DE VIEW:
+
+
+
+CREATE VIEW nome_da_view AS
+SELECT ...
+FROM ...
+JOIN ...
+WHERE ...
+GROUP BY ...;
+
+
+__________________________________________
+PASSO 1 – Faça o SELECT normal
+
+SELECT
+    p.id,
+    c.nome,
+    p.data
+FROM pedidos p
+JOIN clientes c ON c.id = p.cliente_id;
+__________________________________________
+PASSO 2 – Transforme em VIEW
+CREATE VIEW vw_pedidos_clientes AS
+SELECT
+    p.id,
+    c.nome,
+    p.data
+FROM pedidos p
+JOIN clientes c ON c.id = p.cliente_id;
+__________________________________________
+PASSO 3 – Usar a VIEW
+
+Agora você usa como tabela:
+
+SELECT * FROM vw_pedidos_clientes;
+__________________________________________
+
+
+
+
+com cálculo (nível prova)
+
+CREATE VIEW vw_total_pedidos AS
+SELECT
+    p.id,
+    c.nome,
+    SUM(i.quantidade * i.preco) AS total
+FROM pedidos p
+JOIN clientes c ON c.id = p.cliente_id
+JOIN itens_pedido i ON i.pedido_id = p.id
+GROUP BY p.id, c.nome;
+
+
+
+
+__________________________________________
+
+
+
+COMO SABER QUAL JOIN FAZER
+
+Sempre ligue:
+chave primária = chave estrangeira
+Exemplo:
+
+clientes.id = pedidos.cliente_id
+
+
+__________________________________________
+__________________________________________
+__________________________________________
+__________________________________________
+__________________________________________
+__________________________________________
+__________________________________________
+__________________________________________
+__________________________________________
+
