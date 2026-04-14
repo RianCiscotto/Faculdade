@@ -71,8 +71,58 @@ clientes.id = pedidos.cliente_id
 
 
 __________________________________________
+
+******************** EXEMPLO VIEW COMPLETA ********************
+
+        CREATE VIEW view_detalhada AS
+        SELECT
+            clientes.id,
+            clientes.nome,
+            clientes.idade,
+            produtos.id,
+            produtos.nome,
+            produtos.tamanho,
+            itens.quantidade,
+            itens.preco
+        FROM clientes
+        JOIN pedidos ON pedidos.cliente_id = clientes.id
+        JOIN itens ON itens.pedido_id = pedidos.id
+        JOIN produtos ON produtos.id = itens.produto_id;
+
 __________________________________________
+
+No FROM eu coloco qual tabela?
+
+👉 Você começa pela tabela principal da sua consulta.
+
+Pergunta que você deve fazer:
+
+“Qual é o assunto principal da minha view?”
+
+Exemplos:
+
+Se a view é sobre pedidos → começa com FROM pedidos
+Se é sobre itens → começa com FROM itens
+Se é sobre clientes → começa com FROM clientes
+
+A tabela do FROM é o centro da sua consulta.
+
+
 __________________________________________
+
+Regra simples pra nunca errar JOIN
+
+Pergunte:
+
+Qual tabela tem o ID da outra dentro dela?
+
+Se pedidos tem cliente_id, então:
+
+pedidos conecta com clientes.
+
+FROM pedidos
+JOIN clientes ON pedidos.cliente_id = clientes.id
+
 __________________________________________
 __________________________________________
 __________________________________________
