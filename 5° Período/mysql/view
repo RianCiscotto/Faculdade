@@ -1,0 +1,70 @@
+************************************************ MODELO DE ESTUDOS VIEW ************************************************
+
+CREATE VIEW view_tabela1_completa AS
+
+SELECT
+    Tabela1.id AS id_tabela1,
+    Tabela1.nome AS nome_tabela1,
+    
+    Tabela2.id AS id_tabela2,
+    Tabela2.descricao AS descricao_tabela2,
+    
+    Tabela3.id AS id_tabela3,
+    Tabela3.valor AS valor_tabela3,
+    
+    Tabela4.id AS id_tabela4,
+    Tabela4.status AS status_tabela4
+
+FROM Tabela1
+
+JOIN Tabela2
+ON Tabela1.id = Tabela2.tabela1_id
+
+JOIN Tabela3
+ON Tabela2.id = Tabela3.tabela2_id
+
+JOIN Tabela4
+ON Tabela3.id = Tabela4.tabela3_id;
+
+
+************************************************ VIEW com SUM + AVG + LAG  ************************************************
+
+CREATE VIEW view_tabela1_completa AS
+
+SELECT
+    Tabela1.id AS id_tabela1,
+    Tabela1.nome AS nome_tabela1,
+    
+    Tabela2.id AS id_tabela2,
+    Tabela2.descricao AS descricao_tabela2,
+    
+    Tabela3.id AS id_tabela3,
+    Tabela3.valor AS valor_tabela3,
+    
+    Tabela4.id AS id_tabela4,
+    Tabela4.status AS status_tabela4,
+
+    -- 🔹 SOMA por grupo
+    SUM(Tabela3.valor) OVER (PARTITION BY Tabela1.id) 
+        AS soma_valores_tabela1,
+
+    -- 🔹 MÉDIA por grupo
+    AVG(Tabela3.valor) OVER (PARTITION BY Tabela1.id) 
+        AS media_valores_tabela1,
+
+    -- 🔹 VALOR ANTERIOR (LAG)
+    LAG(Tabela3.valor) OVER (
+        PARTITION BY Tabela1.id
+        ORDER BY Tabela3.id
+    ) AS valor_anterior
+
+FROM Tabela1
+
+JOIN Tabela2
+ON Tabela1.id = Tabela2.tabela1_id
+
+JOIN Tabela3
+ON Tabela2.id = Tabela3.tabela2_id
+
+JOIN Tabela4
+ON Tabela3.id = Tabela4.tabela3_id;
