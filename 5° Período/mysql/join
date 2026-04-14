@@ -4,3 +4,54 @@ Select *                            -- o que eu quero ver na consulta
 From cliente					              -- a Tabela principal 'Começa por ela'
 inner join pedido p				          -- a tabela que quero juntar “Quero juntar com a tabela pedido”
 on cliente.id = p.cliente_id;       -- “Liga essas duas tabelas usando isso aqui”
+
+
+EXEMPLO:
+
+SELECT *
+FROM Tabela1
+JOIN Tabela2
+ON Tabela1.id = Tabela2.tabela1_id
+JOIN Tabela3
+ON Tabela2.id = Tabela3.tabela2_id
+JOIN Tabela4
+ON Tabela3.id = Tabela4.tabela3_id;
+
+
+
+
+Sempre escreva no SELECT:
+
+NomeDaTabela.coluna
+
+
+
+
+************************************************* MODELO DEFINITIVO *************************************************
+
+SELECT
+    Tabela1.id AS id_tabela1,
+    Tabela1.nome AS nome_tabela1,
+    
+    Tabela2.id AS id_tabela2,
+    Tabela2.descricao AS descricao_tabela2,
+    
+    Tabela3.id AS id_tabela3,
+    Tabela3.valor AS valor_tabela3,
+    
+    Tabela4.id AS id_tabela4,
+    Tabela4.status AS status_tabela4
+
+FROM Tabela1
+
+JOIN Tabela2
+ON Tabela1.id = Tabela2.tabela1_id
+
+JOIN Tabela3
+ON Tabela2.id = Tabela3.tabela2_id
+
+JOIN Tabela4
+ON Tabela3.id = Tabela4.tabela3_id;
+
+
+*********************************************************************************************************************
