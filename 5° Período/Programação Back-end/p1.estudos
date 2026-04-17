@@ -1,0 +1,202 @@
+1️⃣ Criar projeto e app
+django-admin startproject config .
+python manage.py startapp sistema
+
+
+
+
+2️⃣ Registrar app no projeto
+
+Ir em:
+
+                                      config/settings.py
+
+Adicionar:
+
+                                      'sistema',
+
+em INSTALLED_APPS.
+
+
+
+
+
+
+3️⃣ Criar o Model (O BANCO DE DADOS DE FATO DO PROJETO)
+
+Ir em:
+
+                                           Sistema/models.py
+
+Criar a classe principal 
+(exemplo banco, locadora, consultório etc):
+
+
+
+                                      class Item(models.Model):
+                                          nome = models.CharField(max_length=100)
+                                          descricao = models.TextField()
+                                          status = models.CharField(max_length=20)
+                                          data_criacao = models.DateField()
+                                      
+Se pedir PRIORIDADE:
+                                      
+                                      PRIORIDADES = [
+                                          ('URGENTE', 'Urgente'),
+                                          ('NAO_URGENTE', 'Não Urgente'),
+                                      ]
+
+                                      prioridade = models.CharField(max_length=20, choices=PRIORIDADES)
+
+
+
+
+
+
+
+4️⃣ Gerar banco
+                                          python manage.py makemigrations
+                                          python manage.py migrate
+
+
+
+
+
+5️⃣ Registrar no Admin
+
+Ir em:
+
+                                      sistema/admin.py
+                                      from .models import Item
+                                      admin.site.register(Item)
+
+Criar superusuário:
+
+                                      python manage.py createsuperuser
+
+
+
+                                      
+6️⃣ Criar primeira API (GET geral)
+
+Ir em:
+
+                                      sistema/views.py
+                                      from django.http import JsonResponse
+                                      from .models import Item
+                                      
+                                      def listar_itens(request):
+                                          dados = list(Item.objects.values())
+                                          return JsonResponse(dados, safe=False)
+
+
+
+
+                                          
+7️⃣ Criar urls do app
+
+Criar:
+
+                                      sistema/urls.py
+                                      from django.urls import path
+                                      from .views import listar_itens
+                                      
+                                      urlpatterns = [
+                                          path('itens/', listar_itens),
+                                      ]
+
+
+
+
+                                      
+8️⃣ Ligar no config
+
+Ir em:
+
+                                        config/urls.py
+
+Adicionar:
+
+                                        from django.urls import path, include
+                                        
+                                        urlpatterns = [
+                                            path('admin/', admin.site.urls),
+                                            path('api/', include('sistema.urls')),
+                                            ]
+
+
+
+
+
+                                            
+                                        
+9️⃣ Rodar servidor
+                                        python manage.py runserver
+
+Testar:
+                                      
+                                      http://127.0.0.1:8000/api/itens/
+
+
+
+                                      
+🔥 PARTE 2 – O QUE SEMPRE CAI
+✅ Rota por ID
+
+views.py:
+                                              
+                                              def buscar_por_id(request, id):
+                                                  try:
+                                                      item = Item.objects.get(id=id)
+                                                      return JsonResponse({
+                                                          "id": item.id,
+                                                          "nome": item.nome,
+                                                          "status": item.status
+                                                      })
+                                                  except Item.DoesNotExist:
+                                                      return JsonResponse({"erro": "Não encontrado"})
+
+urls.py:
+
+                                                path('itens/<int:id>/', buscar_por_id),
+
+
+
+                                                
+✅ Rota por PRIORIDADE
+
+views.py:
+
+                                                    def buscar_por_prioridade(request, prioridade):
+                                                        dados = list(Item.objects.filter(prioridade=prioridade).values())
+                                                        return JsonResponse(dados, safe=False)
+
+urls.py:
+
+                                                    path('itens/prioridade/<str:prioridade>/', buscar_por_prioridade),
+
+
+
+
+                                                    
+✅ Rota por STATUS
+                                                            def abertas(request):
+                                                                dados = list(Item.objects.filter(status='ABERTA').values())
+                                                                return JsonResponse(dados, safe=False)
+                                                            path('itens/abertas/', abertas),
+
+                                                            
+✅ Rota com 2 filtros (status + prioridade)
+                                                      def urgentes_abertas(request):
+                                                          dados = list(Item.objects.filter(
+                                                              status='ABERTA',
+                                                              prioridade='URGENTE'
+                                                          ).values())
+                                                          return JsonResponse(dados, safe=False)
+
+                                                          
+✅ Rota de busca por palavra
+                                                  def buscar_titulo(request, palavra):
+                                                      dados = list(Item.objects.filter(nome__icontains=palavra).values())
+                                                      return JsonResponse(dados, safe=False)
+                                                  path('itens/busca/<str:palavra>/', buscar_titulo),
