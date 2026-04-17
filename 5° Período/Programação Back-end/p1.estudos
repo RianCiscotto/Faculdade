@@ -5,9 +5,9 @@
 
 
 
-2️⃣ Registrar app no projeto
+2️⃣ Registrar app no projeto (config/settings.py) 
 
-Ir em:
+Ir em: 
 
                                       config/settings.py
 
@@ -22,7 +22,7 @@ em INSTALLED_APPS.
 
 
 
-3️⃣ Criar o Model (O BANCO DE DADOS DE FATO DO PROJETO)
+3️⃣ Criar o Model (O BANCO DE DADOS DE FATO DO PROJETO) (sistema/models.py)
 
 Ir em:
 
@@ -62,7 +62,7 @@ Se pedir PRIORIDADE:
 
 
 
-5️⃣ Registrar no Admin
+5️⃣ Registrar no Admin (sistema/admin.py)
 
 Ir em:
 
@@ -77,7 +77,7 @@ Criar superusuário:
 
 
                                       
-6️⃣ Criar primeira API (GET geral)
+6️⃣ Criar primeira API (GET geral) (sistema/views.py)
 
 Ir em:
 
@@ -93,7 +93,7 @@ Ir em:
 
 
                                           
-7️⃣ Criar urls do app
+7️⃣ Criar urls do app (sistema/urls.py)
 
 Criar:
 
@@ -109,7 +109,7 @@ Criar:
 
 
                                       
-8️⃣ Ligar no config
+8️⃣ Ligar no config (config/urls.py)
 
 Ir em:
 
@@ -141,7 +141,7 @@ Testar:
 
                                       
 🔥 PARTE 2 – O QUE SEMPRE CAI
-✅ Rota por ID
+✅ Rota por ID (sistema/views.py)
 
 views.py:
                                               
@@ -156,14 +156,14 @@ views.py:
                                                   except Item.DoesNotExist:
                                                       return JsonResponse({"erro": "Não encontrado"})
 
-urls.py:
+urls.py: (sistema/urls.py)
 
                                                 path('itens/<int:id>/', buscar_por_id),
 
 
 
                                                 
-✅ Rota por PRIORIDADE
+✅ Rota por PRIORIDADE (sistema/views.py)
 
 views.py:
 
@@ -171,7 +171,7 @@ views.py:
                                                         dados = list(Item.objects.filter(prioridade=prioridade).values())
                                                         return JsonResponse(dados, safe=False)
 
-urls.py:
+urls.py: (sistema/urls.py)
 
                                                     path('itens/prioridade/<str:prioridade>/', buscar_por_prioridade),
 
@@ -179,7 +179,7 @@ urls.py:
 
 
                                                     
-✅ Rota por STATUS
+✅ Rota por STATUS (sistema/views.py)
                                                             def abertas(request):
                                                                 dados = list(Item.objects.filter(status='ABERTA').values())
                                                                 return JsonResponse(dados, safe=False)
@@ -200,3 +200,82 @@ urls.py:
                                                       dados = list(Item.objects.filter(nome__icontains=palavra).values())
                                                       return JsonResponse(dados, safe=False)
                                                   path('itens/busca/<str:palavra>/', buscar_titulo),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+✅ Configurar NOME
+git config --global user.name "Seu Nome"
+✅ Configurar EMAIL
+git config --global user.email "seuemail@email.com"
+✅ Conferir se salvou
+git config --list
+🔥 2️⃣ INICIAR GIT EM UM PROJETO
+
+Entrar na pasta do projeto:
+
+cd nome_da_pasta
+
+Iniciar repositório:
+
+git init
+🔥 3️⃣ CLONAR UM REPOSITÓRIO EXISTENTE
+
+Ir para a pasta onde quer baixar:
+
+cd Desktop
+
+Clonar:
+
+git clone https://github.com/usuario/repositorio.git
+
+Entrar na pasta:
+
+cd repositorio
+🔥 4️⃣ ENVIAR ARQUIVOS PARA O GITHUB (PRIMEIRO PUSH)
+
+Adicionar arquivos:
+
+git add .
+
+Criar commit:
+
+git commit -m "primeiro commit"
+
+Conectar ao repositório remoto (se ainda não estiver conectado):
+
+git remote add origin https://github.com/usuario/repositorio.git
+
+Enviar:
+
+git push -u origin main
+
+(se der erro, pode ser master no lugar de main)
