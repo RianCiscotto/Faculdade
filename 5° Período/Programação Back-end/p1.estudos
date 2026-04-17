@@ -1,6 +1,6 @@
 1️⃣ Criar projeto e app
-django-admin startproject config .
-python manage.py startapp sistema
+                                          django-admin startproject config .
+                                          python manage.py startapp sistema
 
 
 
