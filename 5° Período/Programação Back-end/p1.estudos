@@ -1,3 +1,28 @@
+Criar venv
+Instalar Django
+startproject
+startapp
+Registrar app
+Criar model
+makemigrations + migrate
+Registrar admin
+Criar view
+Criar urls app
+Ligar no config
+runserver
+
+
+
+
+
+
+
+
+
+
+
+
+
 1️⃣ Criar projeto e app
                                           django-admin startproject config .
                                           python manage.py startapp sistema
