@@ -1,4 +1,7 @@
-          ------ Requisição --->
+_________________________________________________________________________________
+
+
+         ------ Requisição --->
 Navegador ----------------------- App
 Seu pc --------------------------  servidor (russia, china, etc)
          <------ Resposta -----
@@ -26,32 +29,17 @@ PATCH
 _________________________________________________________________________________
 APIs bem construidas precisam de pessoas que sabem elaborar a requisiçao http e a resposta
 
-
-
-
-
-
-
-
 __________________
 __________________
-
 
 ********* IMPORTANTE *********
 HTTP 2.0 - protocolo existe mas não está em uso
-
 __________________
 __________________
-
-
-
-
-
 
 _________________________________________________________________________________
 Qualidade: api que estao definindo bem cabeçalhos (HEADERS), DEFININDO BEM o que estamos retornando, o que estamos pedindo.
 _________________________________________________________________________________
-
 
 REQUISICOES QUE TEM CORPO
 GET - X
@@ -59,7 +47,6 @@ POST - V
 PUT - V - Envio o usuario inteiro para ser atualizado
 DELETE - X
 PATCH - V -Envio o partes do usuario para ser atualizado
-
 
 _________________________________________________________________________________
 
@@ -76,9 +63,7 @@ ACCEPT e CONTENT TYPE precisam andar de mãos dadas, (tira ponto se nao tiver na
 |-----------> ACCEPT - O Accept diz o que o cliente quer receber do servidor
 |
 |
-|
 |-----------> CONTENT TYPE - diz o que o cliente ou o servidor está enviando no corpo da mensage
-
 
 _________________________________________________________________________________________________________
  
@@ -96,19 +81,14 @@ MODEL - lida com a regra e com os dados
 VIEW - visual
 CONTROLER - meio de campo, uma classe que fica entre o visual e o model (para a view nao ter acesso a regra (model))
 
-
 **********************************************
-
 _________________________________________________________________________________________________________
 
 Não será mais MONOLITO - A API era para buscar dados em um local e ir para outro
 
-
 API não tem view, tem model, controler... POIS ELA NÃO ESTÁ FOCADA EM USUÁRIO FINAL
-
 _________________________________________________________________________________________________________
 DIcas para o trabalho
-
 
                                         ***************************** TIPOS DE API *****************************
 
@@ -119,7 +99,9 @@ QUAL A VANTAGEM? - A API SOAP oferece segurança avançada e transações ultra-
 
 
 RESTFUL - Precisa ser HTTP (veste a camisa a fundo do http), usar o HTTP a fundo (PRECISA ENTENDER HTTP PARA ENTREVISTAS DE EMPREGO)
-PODE RETORNAR XLM E JSON
+PODE RETORNAR XLM E JSON.
+Uma API RESTful é um padrão de arquitetura que permite a comunicação entre sistemas pela internet usando o protocolo HTTP. 
+Ela manipula dados e recursos de forma independente e padronizada, usando verbos como GET, POST, PUT e DELETE
 
 
 
