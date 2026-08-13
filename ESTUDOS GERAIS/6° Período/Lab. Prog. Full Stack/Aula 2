@@ -63,7 +63,21 @@ PATCH - V -Envio o partes do usuario para ser atualizado
 
 _________________________________________________________________________________
 
+Cabeçalhos (headers): (não é totalmente seguro travar no user-agent)
+User-agent: Mozilla/4.75
+_____|_____    ___|____
+  Header       Navegador
+Até a BRUTAL-FORCE as pessoas fazem bots, devemos travar tudo e se preocupar com mais coisas.
 
+......................
+
+ACCEPT e CONTENT TYPE precisam andar de mãos dadas, (tira ponto se nao tiver na prova)
+
+|-----------> ACCEPT - O Accept diz o que o cliente quer receber do servidor
+|
+|
+|
+|-----------> CONTENT TYPE - diz o que o cliente ou o servidor está enviando no corpo da mensage
 
 
 
