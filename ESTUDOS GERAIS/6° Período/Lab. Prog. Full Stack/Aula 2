@@ -80,14 +80,46 @@ ACCEPT e CONTENT TYPE precisam andar de mãos dadas, (tira ponto se nao tiver na
 |-----------> CONTENT TYPE - diz o que o cliente ou o servidor está enviando no corpo da mensage
 
 
+_________________________________________________________________________________________________________
+ 
+******* COMO SERÁ NOSSO FORMATO DE ARQUITETURA *******
 
 
+             Faz o get pra pág inicial
+NAVEGADOR --------------------------------- FLASK   - Aplicacao moinolito, trabalha o front e back dentro dela
+     render    Retorna o home.html
+
+**********************************************
+
+MVC
+MODEL - lida com a regra e com os dados
+VIEW - visual
+CONTROLER - meio de campo, uma classe que fica entre o visual e o model (para a view nao ter acesso a regra (model))
 
 
+**********************************************
+
+_________________________________________________________________________________________________________
+
+Não será mais MONOLITO - A API era para buscar dados em um local e ir para outro
 
 
+API não tem view, tem model, controler... POIS ELA NÃO ESTÁ FOCADA EM USUÁRIO FINAL
+
+_________________________________________________________________________________________________________
+DIcas para o trabalho
 
 
+                                        ***************************** TIPOS DE API *****************************
+
+SOAP - a diferença pro restful está no formato como ele conversa com o protocolo, ele foi feito para ser agnóstico (não se importa com qual protocolo está trabalhando)
+QUando fazemos requisições tudo vai no corpo (body) do soap, tudo é POST \app, inserir nota fiscal POST \App.
+SEMPRE USA XLM.
+QUAL A VANTAGEM? - A API SOAP oferece segurança avançada e transações ultra-seguras por meio de contratos rígidos e padronizados.
+
+
+RESTFUL - Precisa ser HTTP (veste a camisa a fundo do http), usar o HTTP a fundo (PRECISA ENTENDER HTTP PARA ENTREVISTAS DE EMPREGO)
+PODE RETORNAR XLM E JSON
 
 
 
