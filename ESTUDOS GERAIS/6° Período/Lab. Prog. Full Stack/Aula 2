@@ -23,6 +23,56 @@ POST
 PUT
 DELETE
 PATCH
+_________________________________________________________________________________
+APIs bem construidas precisam de pessoas que sabem elaborar a requisiçao http e a resposta
+
+
+
+
+
+
+
+
+__________________
+__________________
+
+
+********* IMPORTANTE *********
+HTTP 2.0 - protocolo existe mas não está em uso
+
+__________________
+__________________
+
+
+
+
+
+
+_________________________________________________________________________________
+Qualidade: api que estao definindo bem cabeçalhos (HEADERS), DEFININDO BEM o que estamos retornando, o que estamos pedindo.
+_________________________________________________________________________________
+
+
+REQUISICOES QUE TEM CORPO
+GET - X
+POST - V
+PUT - V - Envio o usuario inteiro para ser atualizado
+DELETE - X
+PATCH - V -Envio o partes do usuario para ser atualizado
+
+
+_________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
 
 
 
