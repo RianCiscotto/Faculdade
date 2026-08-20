@@ -1,0 +1,1615 @@
+API do VassCommerce
+Prof. Me. Tássio Auad
+Laboratório de Programação FullStack
+VassCommerce
+O serviço web representado pelo diagrama de classes de análise abaixo é parte
+de um pequeno e-commerce, com todas as funcionalidades que normalmente encontramos, como clientes se cadastrando, pesquisando por produtos e realizando
+pedidos.
+Detalhes além do que é comum aos e-commerces podem ser encontrados no
+diagrama, como as tabelas de promoção, responsáveis por definir um novo preço
+a um conjunto de produtos durante um determinado tempo indicado pelas datas
+de início e fim daquela promoção. Isso pode ser útil para momentos como a Black
+Friday. Caso ocorra de um produto estar vinculado a mais de uma tabela de
+promoção, o menor dos preços das promoções será utilizado nas vendas.
+Também pode ser visto em um relacionamento ternário que o pagamento de
+um pedido pode ser realizado utilizando vários cartões do cliente. Ou seja, é
+possível pagar parte do pedido em um cartão e o restante em outro.
+Outro detalhe é que cada administrador está vinculado a uma categoria e
+que é, por isso, o único responsável por uma determinada categoria. Cada
+administrador só poderá realizar cadastros de produtos na categoria em que ele
+é responsável. Mas todo e qualquer administrador pode lançar uma tabela de
+promoção nova.
+1
+Figura 1: Diagrama de Classe do VassCommerce
+Rotas
+De acordo com a descrição do serviço web do e-commerce, considere as rotas
+abaixo:
+Categorias
+• /categoria
+GET: Listagem de todas as categorias cadastradas
+• /categoria?nome=<nomeCategoria>
+GET: Busca de categoria por nome
+• /categoria/<idcategoria>/produto
+GET: Listagem de todos os produtos da categoria especificada
+2
+• /categoria/<idcategoria>/produto?nome=<nomeProduto>&valorMinimo=<valor>&valoGET: Busca de produtos de uma categoria por nome e/ou faixa de valor
+Produto
+• /produto
+POST: Cadastro de um novo produto
+• /produto?nome=<nomeProduto>&valorMinimo=<valor>&valorMaximo=<valor>
+GET: Busca de produtos por nome e/ou faixa de valor
+• /produto/<id>
+GET: Visualizar dados do produto
+• /produto/<id>
+PUT: Atualizar dados do produto
+• /produto/<id>
+DELETE: Excluir cadastro do produto
+Cliente
+• /cliente/<id>
+GET: Visualizar dados do cliente
+• /cliente/<id>
+PUT: Atualizar dados do cliente
+• /cliente/<id>
+DELETE: Excluir cadastro do cliente
+Formas de Pagamento
+• /cliente/<idcliente>/formas-de-pagamento
+GET: Listar todas as formas de pagamento
+• /cliente/<idcliente>/formas-de-pagamento
+POST: Criar nova forma de pagamento
+• /cliente/<idcliente>/formas-de-pagamento/<idformapagamento>
+PUT: Atualizar cadastro da forma de pagamento
+• /cliente/<idcliente>/formas-de-pagamento/<idformapagamento>
+DELETE: Excluir a forma de pagamento
+3
+Endereço
+• /cliente/<idcliente>/endereco
+GET: Busca pelos dados do endereço do cliente
+• /cliente/<idcliente>/endereco
+PUT: Atualização do cadastro do endereço do cliente
+Tipos de Cartão
+• /tipo-cartao
+GET: Listagem de todos os tipos de cartão
+Estados e Cidades
+• /estado
+GET: Listagem de todos os estados
+• /estado/<idestado>/cidade
+GET: Listagem de todas as cidades de um estado
+Pedidos
+• /pedido
+POST: Cadastro de pedidos
+• /cliente/<idcliente>/pedido
+GET: Listagem de pedidos de um cliente
+• /cliente/<idcliente>/pedido?datainicio=<datainicio>&datafinal=<datafinal>
+GET: Listagem de pedidos de um cliente que foram realizados em um período de tempo
+Todos esses serviços respondem com JSON e aceitam JSON nas requisições.
+Sendo assim, sempre utilize os cabeçalhos ideais para esse tipo de mídia.
+Com base nessas informações dadas e levando em conta o domínio do serviço
+web como “vasscommerce.com.br” e porta 80, faça os exercícios a seguir.
+Exercícios de JSON
+1. Como seria o JSON recebido na resposta à requisição de listar todas as
+categorias cadastradas?
+2. Como seria o JSON recebido na resposta à requisição de buscar uma categoria por parte de seu nome?
+3. Como seria o JSON recebido na resposta à requisição de listar todos os
+produtos da categoria especificada?
+4
+4. Como seria o JSON recebido na resposta à requisição de buscar produtos
+de uma categoria por nome e/ou faixa de valor?
+5. Como seria o JSON enviado na requisição de cadastrar um novo produto?
+6. Como seria o JSON recebido na resposta à requisição de buscar produtos
+por nome e/ou faixa de valor?
+7. Como seria o JSON recebido na resposta à requisição de visualizar o cadastro de um produto?
+8. Como seria o JSON enviado na requisição de atualizar o cadastro de um
+produto?
+9. Como seria o JSON recebido na resposta à requisição de visualizar o cadastro de um cliente?
+10. Como seria o JSON enviado na requisição de atualizar dados do cliente?
+11. Como seria o JSON enviado na requisição de cadastrar uma nova forma
+de pagamento?
+12. Como seria o JSON recebido na resposta à requisição de listar todas as
+formas de pagamento?
+13. Como seria o JSON enviado na requisição de atualizar o cadastro de uma
+forma de pagamento?
+14. Como seria o JSON recebido na resposta à requisição de buscar o endereço
+de um cliente?
+15. Como seria o JSON enviado na requisição de atualizar o endereço de um
+cliente?
+16. Como seria o JSON recebido na resposta à requisição de listagem de um
+estado?
+17. Como seria o JSON recebido na resposta à requisição de listagem de cidades de um estado?
+18. Como seria o JSON enviado na requisição de cadastrar um pedido?
+19. Como seria o JSON recebido na resposta à requisição de listagem de pedidos de um cliente?
+20. Como seria o JSON recebido na resposta à requisição de buscar de pedidos
+de um cliente cadastrados em um período de tempo?
+5
+Exercícios de Mensagens HTTP
+Usando o exemplo abaixo de uma mensagem HTTP de requisição e resposta,
+responda às questões abaixo. Lembre-se que toda mensagem HTTP é um conjunto de linhas de texto e entre o bloco do cabeçalho e o bloco do corpo, pula-se
+uma linha!
+Requisição
+METODO /caminho VERSAOHTTP
+cabeçalho-nome: cabeçalho-valor
+cabeçalho-nome: cabeçalho-valor
+cabeçalho-nome: cabeçalho-valor
+conteudodocorpo
+Resposta
+VERSAOHTTP statuscode statusdescricao
+cabeçalho-nome: cabeçalho-valor
+cabeçalho-nome: cabeçalho-valor
+cabeçalho-nome: cabeçalho-valor
+conteudodocorpo
+Questões
+1. Como seriam as mensagens de requisição e resposta para listar todas as
+categorias cadastradas?
+2. Como seriam as mensagens de requisição e resposta para buscar uma categoria por parte de seu nome?
+3. Como seriam as mensagens de requisição e resposta para listar todos os
+produtos da categoria especificada?
+4. Como seriam as mensagens de requisição e resposta para buscar produtos
+de uma categoria por nome e/ou faixa de valor?
+5. Como seriam as mensagens de requisição e resposta para cadastrar um
+novo produto?
+6. Como seriam as mensagens de requisição e resposta para buscar produtos
+por nome e/ou faixa de valor?
+7. Como seriam as mensagens de requisição e resposta para visualizar o cadastro de um produto?
+6
+8. Como seriam as mensagens de requisição e resposta para atualizar o cadastro de um produto?
+9. Como seriam as mensagens de requisição e resposta para excluir o cadastro
+de um produto?
+10. Como seriam as mensagens de requisição e resposta para visualizar o cadastro de um cliente?
+11. Como seriam as mensagens de requisição e resposta para atualizar dados
+do cliente?
+12. Como seriam as mensagens de requisição e resposta para excluir cadastro
+do cliente?
+13. Como seriam as mensagens de requisição e resposta para cadastrar uma
+nova forma de pagamento?
+14. Como seriam as mensagens de requisição e resposta para listar todas as
+formas de pagamento?
+15. Como seriam as mensagens de requisição e resposta para atualizar o cadastro de uma forma de pagamento?
+16. Como seriam as mensagens de requisição e resposta para excluir uma
+forma de pagamento cadastrada por um cliente?
+17. Como seriam as mensagens de requisição e resposta para buscar o endereço
+de um cliente?
+18. Como seriam as mensagens de requisição e resposta para atualizar o endereço de um cliente?
+19. Como seriam as mensagens de requisição e resposta para listar os estado?
+20. Como seriam as mensagens de requisição e resposta para listar cidades de
+um estado?
+21. Como seriam as mensagens de requisição e resposta para cadastrar um
+pedido?
+22. Como seriam as mensagens de requisição e resposta para listar de pedidos
+de um cliente?
+23. Como seriam as mensagens de requisição e resposta para buscar de pedidos
+de um cliente cadastrados em um período de tempo?
+7
+Questões Teóricas sobre Protocolos
+1. Explique com suas palavras os seguintes tópicos:
+• HTTP, TCP e IP
+• Transação HTTP
+• Mensagens HTTP e suas constituição
+2. Qual o número mínimo e máximo de cabeçalhos em uma mensagem HTTP?
+3. Quais as limitações que o conteúdo do corpo de uma mensagem HTTP
+possui?
+4. Quais as principais características do TCP?
+5. Desenhe a pilha de protocolos da web que estudamos e como um se sobrepõe, utilizando o anterior.
+6. Escreva o fluxo de caso de uso de uma transação HTTP de GET entre
+um arduino e um serviço web. (Não se esqueça de dar todos os detalhes
+inclusive dos passos realizados pelo TCP)
+7. O que é uma URL e como ela é composta? Explique cada parte de sua
+composição.
+8. Qual a diferença entre URL e URI?
+9. Qual a diferença entre Web e Internet?
+10. Explique com suas palavras a arquitetura Cliente-Servidor.
+11. O que são códigos de status de resposta do HTTP? Quais são as cinco
+classes de código de status?
+12. Explique cada uma delas e cite exemplos de código de status de cada.
+13. O que são MIME Types? Cite exemplos.
+14. O que são métodos HTTP? Liste e explique cada métodos HTTP mais
+comuns.
+15. Associe cada método HTTP com as operações básicas encontradas em
+softwares (CRUD)
+16. O que é idempotência e quais métodos HTTP são idempotentes?
+17. Pesquise e explique com suas palavras os métodos HTTP abaixo:
+• CONNECT
+• OPTIONS
+• TRACE
+8
+18. Os MIME Types abaixo correspondem a quais tipos de arquivo?
+• application/vnd.ms-excel
+• application/json
+• video/mp4
+• application/pdf
+• text/javascript e application/javascript (Quem são e qual a diferença?)
+• text/css
+19. Explique o significado dos cabeçalhos abaixo e em quais tipos de mensagem
+eles aparecem (Requisição e/ou Resposta) :
+• Content-Language
+• Content-Type
+• Content-Encoding
+• Content-Length
+• Accept
+• User-Agent
+• Server
+• Last-Modified
+• Date
+9
+
+responda
+
+Claro. Abaixo está uma resolução completa, usando exemplos coerentes com o domínio vasscommerce.com.br e considerando HTTP/1.1, porta 80 e JSON (application/json).
+
+Parte 1 — Exercícios de JSON
+
+Os valores são exemplos. Como o enunciado não fornece os atributos exatos da figura, estou usando uma estrutura típica e coerente com o domínio descrito.
+
+1. JSON da resposta para listar todas as categorias
+[
+  {
+    "id": 1,
+    "nome": "Eletrônicos"
+  },
+  {
+    "id": 2,
+    "nome": "Informática"
+  },
+  {
+    "id": 3,
+    "nome": "Celulares"
+  }
+]
+2. JSON da resposta para buscar categoria por parte do nome
+
+Exemplo: GET /categoria?nome=eletr
+
+[
+  {
+    "id": 1,
+    "nome": "Eletrônicos"
+  }
+]
+3. JSON da resposta para listar produtos de uma categoria
+
+Exemplo: GET /categoria/1/produto
+
+[
+  {
+    "id": 101,
+    "nome": "Smart TV 50 polegadas",
+    "descricao": "Smart TV LED 4K",
+    "valor": 2499.90,
+    "categoria": {
+      "id": 1,
+      "nome": "Eletrônicos"
+    }
+  },
+  {
+    "id": 102,
+    "nome": "Fone Bluetooth",
+    "descricao": "Fone de ouvido sem fio",
+    "valor": 199.90,
+    "categoria": {
+      "id": 1,
+      "nome": "Eletrônicos"
+    }
+  }
+]
+4. JSON da resposta para buscar produtos de uma categoria por nome/faixa de valor
+
+Exemplo: GET /categoria/1/produto?nome=fone&valorMinimo=100&valorMaximo=300
+
+[
+  {
+    "id": 102,
+    "nome": "Fone Bluetooth",
+    "descricao": "Fone de ouvido sem fio",
+    "valor": 199.90,
+    "categoria": {
+      "id": 1,
+      "nome": "Eletrônicos"
+    }
+  }
+]
+5. JSON enviado para cadastrar um novo produto
+{
+  "nome": "Notebook VassCommerce",
+  "descricao": "Notebook com processador Intel Core i5",
+  "valor": 3499.90,
+  "idCategoria": 2
+}
+6. JSON da resposta para buscar produtos por nome/faixa de valor
+
+Exemplo: GET /produto?nome=notebook&valorMinimo=2000&valorMaximo=5000
+
+[
+  {
+    "id": 201,
+    "nome": "Notebook VassCommerce",
+    "descricao": "Notebook com processador Intel Core i5",
+    "valor": 3499.90,
+    "categoria": {
+      "id": 2,
+      "nome": "Informática"
+    }
+  }
+]
+7. JSON da resposta para visualizar um produto
+{
+  "id": 201,
+  "nome": "Notebook VassCommerce",
+  "descricao": "Notebook com processador Intel Core i5",
+  "valor": 3499.90,
+  "categoria": {
+    "id": 2,
+    "nome": "Informática"
+  }
+}
+8. JSON enviado para atualizar um produto
+{
+  "nome": "Notebook VassCommerce Pro",
+  "descricao": "Notebook com processador Intel Core i7",
+  "valor": 4299.90,
+  "idCategoria": 2
+}
+9. JSON da resposta para visualizar um cliente
+{
+  "id": 10,
+  "nome": "João da Silva",
+  "cpf": "12345678900",
+  "email": "joao@email.com",
+  "telefone": "24999999999"
+}
+10. JSON enviado para atualizar dados do cliente
+{
+  "nome": "João da Silva",
+  "cpf": "12345678900",
+  "email": "joao.novo@email.com",
+  "telefone": "24988888888"
+}
+11. JSON enviado para cadastrar nova forma de pagamento
+
+Considerando que a forma seja um cartão:
+
+{
+  "numero": "4111111111111111",
+  "nomeTitular": "João da Silva",
+  "validade": "12/2030",
+  "codigoSeguranca": "123",
+  "idTipoCartao": 1
+}
+12. JSON da resposta para listar formas de pagamento
+[
+  {
+    "id": 1,
+    "numero": "************1111",
+    "nomeTitular": "João da Silva",
+    "validade": "12/2030",
+    "tipoCartao": {
+      "id": 1,
+      "nome": "Visa"
+    }
+  },
+  {
+    "id": 2,
+    "numero": "************2222",
+    "nomeTitular": "João da Silva",
+    "validade": "08/2029",
+    "tipoCartao": {
+      "id": 2,
+      "nome": "Mastercard"
+    }
+  }
+]
+13. JSON enviado para atualizar uma forma de pagamento
+{
+  "numero": "5500000000000004",
+  "nomeTitular": "João da Silva",
+  "validade": "10/2031",
+  "codigoSeguranca": "456",
+  "idTipoCartao": 2
+}
+14. JSON da resposta para buscar endereço de um cliente
+{
+  "logradouro": "Rua das Flores",
+  "numero": "100",
+  "complemento": "Apto 201",
+  "bairro": "Centro",
+  "cep": "27700000",
+  "cidade": {
+    "id": 10,
+    "nome": "Vassouras",
+    "estado": {
+      "id": 19,
+      "nome": "Rio de Janeiro",
+      "sigla": "RJ"
+    }
+  }
+}
+15. JSON enviado para atualizar endereço
+{
+  "logradouro": "Rua das Palmeiras",
+  "numero": "200",
+  "complemento": "Casa",
+  "bairro": "Centro",
+  "cep": "27700000",
+  "idCidade": 10
+}
+16. JSON da resposta para listar estados
+[
+  {
+    "id": 19,
+    "nome": "Rio de Janeiro",
+    "sigla": "RJ"
+  },
+  {
+    "id": 25,
+    "nome": "São Paulo",
+    "sigla": "SP"
+  }
+]
+17. JSON da resposta para listar cidades de um estado
+
+Exemplo: GET /estado/19/cidade
+
+[
+  {
+    "id": 10,
+    "nome": "Vassouras"
+  },
+  {
+    "id": 11,
+    "nome": "Petrópolis"
+  },
+  {
+    "id": 12,
+    "nome": "Volta Redonda"
+  }
+]
+18. JSON enviado para cadastrar um pedido
+{
+  "idCliente": 10,
+  "itens": [
+    {
+      "idProduto": 201,
+      "quantidade": 1,
+      "valorUnitario": 3499.90
+    },
+    {
+      "idProduto": 102,
+      "quantidade": 2,
+      "valorUnitario": 199.90
+    }
+  ],
+  "pagamentos": [
+    {
+      "idFormaPagamento": 1,
+      "valor": 2000.00
+    },
+    {
+      "idFormaPagamento": 2,
+      "valor": 1899.70
+    }
+  ]
+}
+
+Observe que esse exemplo demonstra o detalhe importante do enunciado: um mesmo pedido pode ser pago utilizando mais de um cartão.
+
+19. JSON da resposta para listar pedidos de um cliente
+[
+  {
+    "id": 5001,
+    "data": "2026-08-10T14:30:00",
+    "valorTotal": 3899.70,
+    "status": "PAGO"
+  },
+  {
+    "id": 5002,
+    "data": "2026-08-15T10:20:00",
+    "valorTotal": 599.90,
+    "status": "PAGO"
+  }
+]
+20. JSON da resposta para pedidos em determinado período
+
+Exemplo: GET /cliente/10/pedido?datainicio=2026-08-01&datafinal=2026-08-15
+
+[
+  {
+    "id": 5001,
+    "data": "2026-08-10T14:30:00",
+    "valorTotal": 3899.70,
+    "status": "PAGO"
+  }
+]
+Parte 2 — Exercícios de Mensagens HTTP
+
+Vou utilizar:
+
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+Nos métodos GET, normalmente não há corpo na requisição.
+
+1. Listar todas as categorias
+Requisição
+GET /categoria HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+Resposta
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 91
+
+
+[
+  {
+    "id": 1,
+    "nome": "Eletrônicos"
+  },
+  {
+    "id": 2,
+    "nome": "Informática"
+  }
+]
+2. Buscar categoria por nome
+GET /categoria?nome=eletr HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 1,
+    "nome": "Eletrônicos"
+  }
+]
+3. Listar produtos de uma categoria
+GET /categoria/1/produto HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 101,
+    "nome": "Smart TV 50 polegadas",
+    "descricao": "Smart TV LED 4K",
+    "valor": 2499.90,
+    "idCategoria": 1
+  },
+  {
+    "id": 102,
+    "nome": "Fone Bluetooth",
+    "descricao": "Fone de ouvido sem fio",
+    "valor": 199.90,
+    "idCategoria": 1
+  }
+]
+4. Buscar produtos de categoria por nome/faixa de valor
+GET /categoria/1/produto?nome=fone&valorMinimo=100&valorMaximo=300 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 102,
+    "nome": "Fone Bluetooth",
+    "descricao": "Fone de ouvido sem fio",
+    "valor": 199.90,
+    "idCategoria": 1
+  }
+]
+5. Cadastrar produto
+POST /produto HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "nome": "Notebook VassCommerce",
+  "descricao": "Notebook Intel Core i5",
+  "valor": 3499.90,
+  "idCategoria": 2
+}
+
+Resposta possível:
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+
+{
+  "id": 201,
+  "nome": "Notebook VassCommerce",
+  "descricao": "Notebook Intel Core i5",
+  "valor": 3499.90,
+  "idCategoria": 2
+}
+6. Buscar produtos por nome/faixa de valor
+GET /produto?nome=notebook&valorMinimo=2000&valorMaximo=5000 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 201,
+    "nome": "Notebook VassCommerce",
+    "valor": 3499.90
+  }
+]
+7. Visualizar produto
+GET /produto/201 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "id": 201,
+  "nome": "Notebook VassCommerce",
+  "descricao": "Notebook Intel Core i5",
+  "valor": 3499.90,
+  "idCategoria": 2
+}
+8. Atualizar produto
+PUT /produto/201 HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "nome": "Notebook VassCommerce Pro",
+  "descricao": "Notebook Intel Core i7",
+  "valor": 4299.90,
+  "idCategoria": 2
+}
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "id": 201,
+  "nome": "Notebook VassCommerce Pro",
+  "descricao": "Notebook Intel Core i7",
+  "valor": 4299.90,
+  "idCategoria": 2
+}
+9. Excluir produto
+DELETE /produto/201 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 204 No Content
+10. Visualizar cliente
+GET /cliente/10 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "id": 10,
+  "nome": "João da Silva",
+  "cpf": "12345678900",
+  "email": "joao@email.com",
+  "telefone": "24999999999"
+}
+11. Atualizar cliente
+PUT /cliente/10 HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "nome": "João da Silva",
+  "cpf": "12345678900",
+  "email": "joao.novo@email.com",
+  "telefone": "24988888888"
+}
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "id": 10,
+  "nome": "João da Silva",
+  "email": "joao.novo@email.com",
+  "telefone": "24988888888"
+}
+12. Excluir cliente
+DELETE /cliente/10 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 204 No Content
+13. Cadastrar forma de pagamento
+POST /cliente/10/formas-de-pagamento HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "numero": "4111111111111111",
+  "nomeTitular": "João da Silva",
+  "validade": "12/2030",
+  "codigoSeguranca": "123",
+  "idTipoCartao": 1
+}
+
+Resposta:
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+
+{
+  "id": 1,
+  "numero": "************1111",
+  "nomeTitular": "João da Silva",
+  "validade": "12/2030",
+  "idTipoCartao": 1
+}
+14. Listar formas de pagamento
+GET /cliente/10/formas-de-pagamento HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 1,
+    "numero": "************1111",
+    "nomeTitular": "João da Silva",
+    "validade": "12/2030",
+    "idTipoCartao": 1
+  }
+]
+15. Atualizar forma de pagamento
+PUT /cliente/10/formas-de-pagamento/1 HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "numero": "5500000000000004",
+  "nomeTitular": "João da Silva",
+  "validade": "10/2031",
+  "codigoSeguranca": "456",
+  "idTipoCartao": 2
+}
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "id": 1,
+  "numero": "************0004",
+  "nomeTitular": "João da Silva",
+  "validade": "10/2031",
+  "idTipoCartao": 2
+}
+16. Excluir forma de pagamento
+DELETE /cliente/10/formas-de-pagamento/1 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 204 No Content
+17. Buscar endereço
+GET /cliente/10/endereco HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "logradouro": "Rua das Flores",
+  "numero": "100",
+  "complemento": "Apto 201",
+  "bairro": "Centro",
+  "cep": "27700000",
+  "idCidade": 10
+}
+18. Atualizar endereço
+PUT /cliente/10/endereco HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "logradouro": "Rua das Palmeiras",
+  "numero": "200",
+  "complemento": "Casa",
+  "bairro": "Centro",
+  "cep": "27700000",
+  "idCidade": 10
+}
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+{
+  "logradouro": "Rua das Palmeiras",
+  "numero": "200",
+  "complemento": "Casa",
+  "bairro": "Centro",
+  "cep": "27700000",
+  "idCidade": 10
+}
+19. Listar estados
+GET /estado HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 19,
+    "nome": "Rio de Janeiro",
+    "sigla": "RJ"
+  },
+  {
+    "id": 25,
+    "nome": "São Paulo",
+    "sigla": "SP"
+  }
+]
+20. Listar cidades de um estado
+GET /estado/19/cidade HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 10,
+    "nome": "Vassouras"
+  },
+  {
+    "id": 11,
+    "nome": "Petrópolis"
+  }
+]
+21. Cadastrar pedido
+POST /pedido HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+Accept: application/json
+
+
+{
+  "idCliente": 10,
+  "itens": [
+    {
+      "idProduto": 201,
+      "quantidade": 1,
+      "valorUnitario": 3499.90
+    },
+    {
+      "idProduto": 102,
+      "quantidade": 2,
+      "valorUnitario": 199.90
+    }
+  ],
+  "pagamentos": [
+    {
+      "idFormaPagamento": 1,
+      "valor": 2000.00
+    },
+    {
+      "idFormaPagamento": 2,
+      "valor": 1899.70
+    }
+  ]
+}
+
+Resposta:
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+
+{
+  "id": 5001,
+  "data": "2026-08-20T19:00:00",
+  "valorTotal": 3899.70,
+  "status": "PAGO"
+}
+22. Listar pedidos de um cliente
+GET /cliente/10/pedido HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 5001,
+    "data": "2026-08-10T14:30:00",
+    "valorTotal": 3899.70,
+    "status": "PAGO"
+  },
+  {
+    "id": 5002,
+    "data": "2026-08-15T10:20:00",
+    "valorTotal": 599.90,
+    "status": "PAGO"
+  }
+]
+23. Listar pedidos por período
+GET /cliente/10/pedido?datainicio=2026-08-01&datafinal=2026-08-15 HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+
+Resposta:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+
+[
+  {
+    "id": 5001,
+    "data": "2026-08-10T14:30:00",
+    "valorTotal": 3899.70,
+    "status": "PAGO"
+  }
+]
+Parte 3 — Questões Teóricas sobre Protocolos
+1. HTTP, TCP, IP, transação e mensagens HTTP
+HTTP
+
+HTTP (HyperText Transfer Protocol) é o protocolo utilizado para comunicação entre clientes e servidores na Web. Ele define como requisições e respostas devem ser estruturadas.
+
+Exemplo:
+
+GET /produto/10 HTTP/1.1
+
+O cliente solicita um recurso e o servidor retorna uma resposta.
+
+TCP
+
+TCP (Transmission Control Protocol) é responsável por transportar os dados de maneira confiável entre dois dispositivos.
+
+Ele:
+
+estabelece uma conexão;
+garante a ordem dos dados;
+detecta perda de pacotes;
+retransmite dados perdidos;
+controla o fluxo;
+controla congestionamento.
+IP
+
+IP (Internet Protocol) é responsável principalmente pelo endereçamento e encaminhamento dos pacotes pela rede.
+
+Resumidamente:
+
+HTTP → o que está sendo enviado
+TCP  → transporte confiável
+IP   → para onde os dados devem ir
+Transação HTTP
+
+Uma transação HTTP consiste basicamente em:
+
+Cliente → Requisição HTTP → Servidor
+Cliente ← Resposta HTTP   ← Servidor
+
+Por exemplo:
+
+GET /produto/10 HTTP/1.1
+
+e o servidor responde:
+
+HTTP/1.1 200 OK
+Mensagem HTTP
+
+Uma mensagem HTTP é formada por:
+
+linha inicial;
+cabeçalhos;
+linha em branco;
+corpo, quando existente.
+
+Exemplo:
+
+POST /produto HTTP/1.1
+Host: vasscommerce.com.br
+Content-Type: application/json
+
+
+{
+  "nome": "Notebook",
+  "valor": 3000
+}
+2. Número mínimo e máximo de cabeçalhos HTTP
+
+Não existe um número fixo máximo de cabeçalhos definido simplesmente como "X cabeçalhos".
+
+Uma mensagem pode possuir zero ou vários cabeçalhos, embora determinados cabeçalhos sejam obrigatórios em situações específicas.
+
+Além disso, servidores e clientes podem impor limites de tamanho e quantidade.
+
+Para fins da disciplina:
+
+Mínimo: 0 cabeçalhos.
+Máximo: não há um número universal fixo; depende da versão HTTP e das limitações de implementação.
+
+3. Limitações do corpo de uma mensagem HTTP
+
+O HTTP não estabelece um tamanho máximo universal para o corpo da mensagem.
+
+O corpo pode conter diferentes tipos de dados, como:
+
+JSON;
+HTML;
+XML;
+imagens;
+vídeos;
+arquivos.
+
+Porém, clientes, servidores, proxies e frameworks podem estabelecer limites de tamanho.
+
+O tamanho pode ser indicado, por exemplo, por:
+
+Content-Length: 1500
+4. Principais características do TCP
+
+As principais características são:
+
+orientado à conexão;
+confiável;
+entrega os dados na ordem;
+realiza retransmissão de dados perdidos;
+possui controle de fluxo;
+possui controle de congestionamento;
+utiliza confirmação de recebimento;
+trabalha com portas para identificar aplicações.
+5. Pilha de protocolos da Web
+
+Uma representação simplificada:
+
+┌──────────────────────────┐
+│          HTTP            │ ← Aplicação
+├──────────────────────────┤
+│          TCP             │ ← Transporte
+├──────────────────────────┤
+│           IP             │ ← Internet/Rede
+├──────────────────────────┤
+│ Ethernet / Wi-Fi etc.    │ ← Enlace/Física
+└──────────────────────────┘
+
+Cada camada utiliza os serviços fornecidos pela camada inferior.
+
+6. Fluxo de GET entre Arduino e serviço Web
+
+Um fluxo simplificado seria:
+
+Arduino                         Servidor
+   |                               |
+   |--- conexão TCP (SYN) -------->|
+   |<-- SYN + ACK -----------------|
+   |--- ACK ---------------------->|
+   |                               |
+   |--- GET /produto HTTP --------->|
+   |                               |
+   |<-- HTTP/1.1 200 OK -----------|
+   |<-- JSON ----------------------|
+   |                               |
+Detalhando:
+O Arduino determina o endereço do servidor.
+O DNS pode ser utilizado para transformar vasscommerce.com.br em um endereço IP.
+O Arduino inicia uma conexão TCP.
+É realizado o three-way handshake:
+SYN;
+SYN-ACK;
+ACK.
+A conexão TCP está estabelecida.
+O Arduino envia a requisição HTTP:
+GET /produto HTTP/1.1
+Host: vasscommerce.com.br
+Accept: application/json
+O servidor processa a requisição.
+O servidor envia a resposta HTTP.
+O Arduino recebe o JSON.
+A conexão pode ser encerrada ou mantida, dependendo da configuração HTTP/TCP.
+7. O que é URL?
+
+URL (Uniform Resource Locator) é um endereço utilizado para localizar um recurso.
+
+Exemplo:
+
+http://vasscommerce.com.br/produto/10?nome=notebook
+
+Partes:
+
+http://
+
+Esquema/protocolo.
+
+vasscommerce.com.br
+
+Host/domínio.
+
+/produto/10
+
+Caminho (path).
+
+?nome=notebook
+
+Query string/parâmetros.
+
+Se houver:
+
+:8080
+
+representa a porta.
+
+8. Diferença entre URL e URI
+
+URI é um identificador de recurso.
+
+URL é um tipo de URI que, além de identificar o recurso, fornece uma forma de localizá-lo.
+
+Em termos simplificados:
+
+URI
+ └── URL
+
+Portanto, toda URL é uma URI, mas o conceito de URI é mais amplo.
+
+9. Diferença entre Web e Internet
+
+Internet é a grande infraestrutura mundial que conecta redes e dispositivos utilizando diversos protocolos.
+
+Web (World Wide Web) é um serviço que funciona sobre a Internet, utilizando principalmente HTTP/HTTPS, URLs e navegadores/servidores.
+
+Outros serviços da Internet incluem:
+
+e-mail;
+DNS;
+FTP;
+VoIP.
+
+Portanto:
+
+Internet ≠ Web.
+
+A Web é apenas um dos serviços que utilizam a Internet.
+
+10. Arquitetura Cliente-Servidor
+
+Na arquitetura cliente-servidor:
+
+Cliente: solicita serviços ou recursos.
+Servidor: recebe solicitações, processa e fornece respostas.
+
+Exemplo:
+
+                 Requisição
+Cliente --------------------------> Servidor
+       <---------------------------
+                 Resposta
+
+No VassCommerce, um navegador ou aplicativo pode ser o cliente, enquanto o servidor Web disponibiliza a API.
+
+11. O que são códigos de status HTTP?
+
+São códigos enviados pelo servidor para indicar o resultado do processamento da requisição.
+
+Existem cinco classes:
+
+Classe	Significado
+1xx	Informacional
+2xx	Sucesso
+3xx	Redirecionamento
+4xx	Erro do cliente
+5xx	Erro do servidor
+12. Explicação das cinco classes
+1xx — Informacionais
+
+Indicam que a requisição foi recebida/processada parcialmente.
+
+Exemplo:
+
+100 Continue
+2xx — Sucesso
+
+A requisição foi processada com sucesso.
+
+Exemplos:
+
+200 OK
+201 Created
+204 No Content
+3xx — Redirecionamento
+
+Indicam que são necessárias ações adicionais ou que o recurso está em outro local.
+
+Exemplos:
+
+301 Moved Permanently
+302 Found
+304 Not Modified
+4xx — Erro do cliente
+
+Existe algum problema na requisição enviada pelo cliente.
+
+Exemplos:
+
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found
+5xx — Erro do servidor
+
+O servidor encontrou um problema ao processar uma requisição válida.
+
+Exemplos:
+
+500 Internal Server Error
+502 Bad Gateway
+503 Service Unavailable
+13. O que são MIME Types?
+
+MIME Type, atualmente chamado frequentemente de media type, identifica o tipo do conteúdo que está sendo transmitido.
+
+É utilizado principalmente no cabeçalho:
+
+Content-Type: application/json
+
+Exemplos:
+
+application/json
+text/html
+text/css
+image/png
+image/jpeg
+application/pdf
+video/mp4
+14. Métodos HTTP mais comuns
+GET
+
+Obtém informações.
+
+GET /produto/10
+POST
+
+Envia dados para criação/processamento de um recurso.
+
+POST /produto
+PUT
+
+Atualiza/substitui um recurso.
+
+PUT /produto/10
+PATCH
+
+Realiza uma atualização parcial.
+
+PATCH /produto/10
+DELETE
+
+Remove um recurso.
+
+DELETE /produto/10
+HEAD
+
+Semelhante ao GET, mas solicita apenas os cabeçalhos da resposta, sem o conteúdo do recurso.
+
+OPTIONS
+
+Informa quais opções/métodos são suportados para um recurso.
+
+15. Métodos HTTP e CRUD
+
+A associação mais comum é:
+
+CRUD	HTTP
+Create	POST
+Read	GET
+Update	PUT/PATCH
+Delete	DELETE
+
+Exemplo:
+
+CREATE → POST
+READ   → GET
+UPDATE → PUT/PATCH
+DELETE → DELETE
+16. O que é idempotência?
+
+Uma operação é idempotente quando realizar a mesma requisição várias vezes produz, em termos do estado do servidor, o mesmo efeito que realizá-la uma vez.
+
+Exemplo:
+
+PUT /produto/10
+
+Se você enviar várias vezes os mesmos dados, o produto continuará com aqueles mesmos dados.
+
+Métodos considerados idempotentes no HTTP:
+
+GET;
+HEAD;
+OPTIONS;
+PUT;
+DELETE;
+TRACE.
+
+POST não é idempotente por definição.
+
+17. CONNECT, OPTIONS e TRACE
+CONNECT
+
+Solicita que o servidor estabeleça um túnel para o destino indicado.
+
+É muito utilizado por proxies, especialmente para estabelecer túneis para conexões HTTPS.
+
+OPTIONS
+
+Solicita informações sobre as opções de comunicação disponíveis para um recurso.
+
+Exemplo:
+
+OPTIONS /produto HTTP/1.1
+Host: vasscommerce.com.br
+
+Uma resposta pode informar:
+
+Allow: GET, POST, PUT, DELETE
+TRACE
+
+Solicita que o servidor faça um loop-back da requisição recebida, permitindo ao cliente verificar como a requisição está sendo recebida no caminho.
+
+É utilizado principalmente para diagnóstico e pode ser desabilitado por questões de segurança.
+
+18. MIME Types
+application/vnd.ms-excel
+
+Arquivo do Microsoft Excel no formato tradicional .xls.
+
+application/json
+
+Dados no formato JSON.
+
+video/mp4
+
+Vídeo no formato MP4.
+
+application/pdf
+
+Documento PDF.
+
+text/javascript
+
+Conteúdo JavaScript.
+
+application/javascript
+
+Também identifica JavaScript.
+
+Atualmente, text/javascript é o tipo MIME padrão mais utilizado para JavaScript na Web. application/javascript é um tipo histórico/alternativo que pode ser encontrado em sistemas mais antigos.
+
+text/css
+
+Arquivo de folhas de estilo CSS.
+
+19. Cabeçalhos HTTP
+Content-Language
+
+Indica o idioma do conteúdo.
+
+Exemplo:
+
+Content-Language: pt-BR
+
+É utilizado principalmente em respostas, embora cabeçalhos de requisição possam conter informações relacionadas à preferência linguística através de outros mecanismos, como Accept-Language.
+
+Content-Type
+
+Informa o tipo do conteúdo da mensagem.
+
+Exemplo:
+
+Content-Type: application/json
+
+Pode aparecer em requisições e respostas.
+
+Exemplo de requisição:
+
+POST /produto HTTP/1.1
+Content-Type: application/json
+Content-Encoding
+
+Indica uma codificação/compressão aplicada ao conteúdo.
+
+Exemplo:
+
+Content-Encoding: gzip
+
+Pode aparecer em requisições e respostas, embora seja muito comum em respostas.
+
+Content-Length
+
+Indica o tamanho do conteúdo da mensagem, em bytes.
+
+Exemplo:
+
+Content-Length: 250
+
+Pode aparecer em requisições e respostas.
+
+Accept
+
+Indica quais tipos de conteúdo o cliente aceita receber.
+
+Exemplo:
+
+Accept: application/json
+
+Aparece principalmente em requisições.
+
+User-Agent
+
+Identifica o cliente que está realizando a requisição.
+
+Exemplo:
+
+User-Agent: Mozilla/5.0
+
+Aparece em requisições.
+
+Server
+
+Identifica informações sobre o software do servidor que gerou a resposta.
+
+Exemplo:
+
+Server: Apache
+
+Aparece em respostas.
+
+Last-Modified
+
+Indica a data da última modificação do recurso.
+
+Exemplo:
+
+Last-Modified: Wed, 19 Aug 2026 15:00:00 GMT
+
+Aparece principalmente em respostas.
+
+Date
+
+Indica a data e hora associadas à mensagem HTTP.
+
+Exemplo:
+
+Date: Thu, 20 Aug 2026 22:20:00 GMT
+
+É normalmente utilizado em respostas.
+
+Resumo para estudar
+
+A parte mais importante para decorar para a prova é:
+
+HTTP
+│
+├── GET     → consultar
+├── POST    → criar
+├── PUT     → atualizar
+├── PATCH   → atualizar parcialmente
+└── DELETE  → excluir
+CRUD
+│
+├── CREATE → POST
+├── READ   → GET
+├── UPDATE → PUT/PATCH
+└── DELETE → DELETE
+Status HTTP
+│
+├── 1xx → informação
+├── 2xx → sucesso
+├── 3xx → redirecionamento
+├── 4xx → erro do cliente
+└── 5xx → erro do servidor
+Web
+│
+└── HTTP
+    │
+    └── TCP
+        │
+        └── IP
+            │
+            └── Ethernet/Wi-Fi
+
+E, para o VassCommerce:
+
+GET    /produto              → consultar produtos
+POST   /produto              → cadastrar produto
+PUT    /produto/10           → atualizar produto
+DELETE /produto/10           → excluir produto
+
+
+GET    /categoria            → listar categorias
+GET    /cliente/10           → consultar cliente
+POST   /pedido               → cadastrar pedido
+GET    /cliente/10/pedido    → consultar pedidos
+
+Observação: os JSONs acima são modelos de resposta/requisição, já que o enunciado fornecido não traz todos os nomes/atributos legíveis do diagrama de classes. Se o professor exigir que os campos sejam exatamente os da Figura 1, os nomes dos atributos devem ser ajustados ao diagrama.
+
+Anúncio
+Anúncios não influenciam as respostas obtidas do ChatGPT. Seus chats continuam privados. 
+Saiba mais sobre anúncios e personalização
