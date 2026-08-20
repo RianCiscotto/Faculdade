@@ -1,2 +1,32 @@
 BackEnd 
 Java + Spring Boot
+
+Spring Initializr - Se não tiver Ultimate precisa iniciar nesse site https://start.spring.io/
+
+JVM - Java, Kotlin (Podemos fazer projetos hibridros de java/kotlin) (todas rodam dentro de maquinas virtuais, sem necessidade de mudança de sistema)
+
+Project Metadata
+
+Group - br.com.rianciscotto
+Artifact - primeiraapi (nome de sua escolha)
+Package name - br.com.rianciscotto.primeiraapi
+
+com.example.demo
+Packaging - jar
+Configuration - proprieties
+
+
+ADD - clicar
+pesquisar dependências - Spring web e Spring Boot DevTools
+
+
+
+
+jar - Ele roda direto do servidor .jar
+
+war - Quando queremos fazer ele para coisas mais distribuidas, ele vem numa pasta grande e precisamos configurar (para muitos usuarios simuntâneos)
+
+sqlite - banco embarcado pois o banco está dentro da APLICAÇÃO, está embutido (tem suas vantagens e desvantagens), se for fazer projetos rapidos e pontuais,
+melhor embarcado. .Jar nao consegue lidar com muita requisicao simuntanea, 2 cliques já abre. Quando colocamos em servidores separados como Postgree, quanto 
+de ram gastar, quanto gerenciar, fila, etc...Ganhamos em controle
+
