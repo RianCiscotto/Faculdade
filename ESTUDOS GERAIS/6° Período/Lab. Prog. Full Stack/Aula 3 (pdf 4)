@@ -30,3 +30,28 @@ sqlite - banco embarcado pois o banco está dentro da APLICAÇÃO, está embutid
 melhor embarcado. .Jar nao consegue lidar com muita requisicao simuntanea, 2 cliques já abre. Quando colocamos em servidores separados como Postgree, quanto 
 de ram gastar, quanto gerenciar, fila, etc...Ganhamos em controle
 
+
+
+
+
+
+
+
+package br.com.rianciscotto.primeiraapi;                                 - pastas diferentes são territorios diferentes no java. Podemos fazer uma 
+                                                                          classe ser acessivel somente nela, muito controle que o java tem
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication                                                         - Tudo começa daqui, inicializa meu projeto, é o primeiro ponto, o start
+public class PrimeiraapiApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PrimeiraapiApplication.class, args);
+	}
+
+}
+
+
+
+
+
