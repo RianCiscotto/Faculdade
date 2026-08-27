@@ -1,3 +1,47 @@
 Java é Fortemente tipada - as variaveis precisam ter tipos específicos.
 
 
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o primeiro número: ");
+        double numero1 = scanner.nextDouble();
+        System.out.print("Digite o segundo número: ");
+        double numero2 = scanner.nextDouble();
+        double soma = numero1 + numero2;
+        System.out.println("A soma de " + numero1 + " e " + numero2 + " é: " + soma);
+        scanner.close();
+    }
+}
+
+
+
+_______________________________________________________________________________________________________
+
+public class Main {
+    public static void main(String[] args) {
+
+        String nome = "Bob";
+        int a = 1;
+        int b = 2;
+
+        System.out.println(nome);
+
+        if (nome.equals("Rian"))
+            System.out.println("O nome é Rian");
+        else if (nome.equals("João"))
+            System.out.println("O nome é João");
+        else
+            System.out.println("O nome não é Rian nem João");
+    }
+
+    public static int somar(int a, int b) { // 1. Declara o método chamado "somar"
+        return a + b;                      // 2. Soma "a" e "b" e retorna o resultado
+    }                                      // 3. Fecha o método
+}
+
+
+
