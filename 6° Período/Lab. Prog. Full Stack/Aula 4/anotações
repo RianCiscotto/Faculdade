@@ -1,1 +1,47 @@
+Idempotência - Dentro dos metodos POST, GET, PUT, DELETE ... O estado da API não muda de estado
+POSSO FAZER A MESMA REQUISIÇÃO QUE O RESULTADO NÃO MUDA
+GET /alunos -> 10
+GET /alunos -> 10
+GET /alunos -> 10
+GET /alunos -> 10
+GET /alunos -> 10
+GET /alunos -> 10
+IDEMPOTÊNCIA - Mesma Potencia, não esta mudando
+
+Dica de arquitetura:
+Post - inserindo um aluno novo
+
+POST /aluno
+     |
+     |
+     |
+     | 
+Body |
+     |
+     |
+     |
+     |
+
+
+
+
+
+
+
+
+
+
+
+*****************************
+200-299 - Sucesso
+400-499 - Client Error (tipo Bad Request)
+500-599 - Servidor (erro de servidor, internal server error)
+
+
+*****************************
+
+
+
+
+
 
