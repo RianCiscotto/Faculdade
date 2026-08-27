@@ -1,5 +1,12 @@
 Idempotência - Dentro dos metodos POST, GET, PUT, DELETE ... O estado da API não muda de estado
 POSSO FAZER A MESMA REQUISIÇÃO QUE O RESULTADO NÃO MUDA
+
+
+Uma requisição idempotente é aquela que você pode executar 
+várias vezes seguidas obtendo sempre o mesmo efeito no estado 
+do servidor, como se tivesse sido feita apenas uma vez
+
+
 GET /alunos -> 10
 GET /alunos -> 10
 GET /alunos -> 10
@@ -32,12 +39,17 @@ Body |
 
 
 
+
+
+
+
+
+
+
 *****************************
 200-299 - Sucesso
 400-499 - Client Error (tipo Bad Request)
 500-599 - Servidor (erro de servidor, internal server error)
-
-
 *****************************
 
 
