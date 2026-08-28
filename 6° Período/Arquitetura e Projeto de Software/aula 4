@@ -1,1 +1,86 @@
+package exercicioTesteUnitario;
+
+public class Pessoa {
+
+    public float peso;
+    public float IMC;
+    public float altura;
+    public String sexo;
+
+    public String resultado;
+
+
+
+    public float getPeso() {
+        return this.peso;
+    }
+
+    public void setpeso(float peso) {
+        this.peso = peso;
+    }
+
+
+    public float getIMC() {
+        return this.IMC;
+    }
+
+    public void setIMC(float IMC) {
+        this.IMC = IMC;
+    }
+
+    public float getAltura() {
+        return this.altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public String getSexo() {
+        return this.sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getResultado() {
+        return this.resultado;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
+    }
+
+
+    public String calcularImc(){
+        IMC = peso / (altura * altura);
+
+
+        if (this.sexo .equals("Homem") && IMC < 20.7 || this.sexo .equals("Mulher") && IMC < 19.1){
+            return "Abaixo do peso";
+        }
+        if (this.sexo .equals("Homem") & 20.7 <= IMC & IMC < 26.4 || this.sexo .equals("Mulher") & 19.1 <= IMC & IMC < 25.8){
+            return "no peso normal";
+        }
+        if (this.sexo .equals("Homem") & 26.4 <= IMC & IMC < 27.8 || this.sexo .equals("Mulher") & 25.8 <= IMC & IMC < 27.3){
+            return "marginalmente acima do peso";
+        }
+        if (this.sexo .equals("Homem") & 27.8 <= IMC & IMC < 31.1 || this.sexo .equals("Mulher") & 27.3 <= IMC & IMC < 32.3){
+            return "acima do peso ideal";
+        }
+        if (this.sexo .equals("Homem") & IMC >= 31.1 || this.sexo .equals("Mulher") & IMC >= 32.3){
+            return "Obeso";
+        }
+
+    }
+
+}
+
+//if (this.frequencia < 0) {
+//        throw new IllegalArgumentException("Frequencia invalida");
+//        }
+//        IMC = peso / altura2
+
+
 
