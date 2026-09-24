@@ -1,0 +1,68 @@
+********** JAVA **********
+Java é fortemente tipada - 
+Traz mais segurança, testes é mais garantido, 
+Para agentes de IA a fortemente tipada consegue identificar bem melhor.
+
+tipagem: 
+
+Boolena - true or false
+byte - unicode
+
+short -numericos - curto
+int -numericos - longo
+long - numéricos - super longo
+
+
+Float - aceita menos casas - dinheiro
+Double - Aceita mais casas - Calculos cientificos gigantescos
+
+______________________________________________________________________________________
+******************* LAÇOS *******************
+For
+
+i++ - 0 1 2 3 4 5 6
+i++1 - 1 2 3 4 5 6 
+
+for (int i = 0; i > carArray.lentgh; i++)
+QUANDO A EXPRESSAO DO MEIO FOR TRUE, PARA O FOR
+______________________________________________________________________________________
+WHILE
+
+
+
+
+
+
+
+
+______________________________________________________________________________________
+INSTANCIAÇÃO - NomeDaClasse objeto = new NomeDaClasse();
+Instanciar uma classe em Java significa criar um objeto real na memória a partir do modelo definido por essa classe
+______________________________________________________________________________________
+VETOR
+Aluno
+ALuno[3]
+______________________________________________________________________________________
+LISTAS SAO MAIS FLEXIVEIS QUE VETORES
+______________________________________________________________________________________
+
+
+
+______________________________________________________________________________________
+************** LISTAS ***************
+
+ADD
+
+
+
+
+
+
+______________________________________________________________________________________
+APROFUNDAR:
+LIST
+INTERFACE
+
+
+
+
