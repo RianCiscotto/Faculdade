@@ -1,0 +1,20 @@
+Singleton: 
+garantir que exista apenas uma instância de uma classe e fornecer um ponto global de acesso a ela.
+
+Factory Method: 
+permitir que subclasses decidam qual objeto criar, separando a criação do uso do objeto.
+
+Abstract Factory: 
+criar famílias de objetos relacionados sem precisar especificar suas classes concretas.
+
+Bridge: 
+separar uma abstração da sua implementação, permitindo que ambas evoluam de forma independente.
+
+Decorator: 
+adicionar novas funcionalidades a um objeto dinamicamente, sem alterar sua classe original.
+
+Observer: 
+permitir que vários objetos sejam notificados automaticamente quando o estado de outro objeto muda.
+
+State: 
+permitir que um objeto altere seu comportamento conforme seu estado interno muda.
