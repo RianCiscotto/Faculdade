@@ -18,3 +18,813 @@ permitir que vários objetos sejam notificados automaticamente quando o estado d
 
 State: 
 permitir que um objeto altere seu comportamento conforme seu estado interno muda.
+
+
+
+
+
+
+
+
+
+
+
+
+Claro. O seu código implementa dois padrões de projeto comportamentais ao mesmo tempo:
+
+State → controla os diferentes estados da máquina de vendas.
+
+Observer → avisa outros objetos quando o estado da máquina muda.
+
+Vou explicar desde a ideia geral até cada classe, para você conseguir explicar o projeto em uma apresentação.
+
+1. O que o sistema faz?
+Imagine uma máquina de vendas.
+
+Ela pode estar em vários estados:
+
+Aguardando Moeda
+       ↓
+Moeda Inserida
+       ↓
+Dispensando Produto
+       ↓
+Venda Concluída
+       ↓
+Aguardando Moeda
+
+Também existe a possibilidade de:
+
+Moeda Inserida
+       ↓
+Dinheiro Devolvido
+       ↓
+Aguardando Moeda
+
+O seu programa representa exatamente esse fluxo.
+
+2. Por que usar o padrão State?
+O State serve para permitir que um objeto tenha comportamentos diferentes dependendo do seu estado atual.
+
+No seu caso, o objeto principal é:
+
+MaquinaDeVendas
+
+A máquina pode receber ações como:
+
+maquina.inserirMoeda();
+maquina.selecionarProduto();
+maquina.dispensarProduto();
+maquina.cancelar();
+
+Mas essas ações não podem funcionar da mesma maneira em todos os estados.
+
+Por exemplo:
+
+Máquina aguardando moeda
+Se o usuário fizer:
+
+maquina.inserirMoeda();
+
+deve funcionar.
+
+Mas:
+
+maquina.selecionarProduto();
+
+não deve funcionar, porque ainda não existe moeda.
+
+Máquina com moeda inserida
+Agora:
+
+maquina.selecionarProduto();
+
+pode funcionar.
+
+Mas se o usuário tentar inserir outra moeda:
+
+maquina.inserirMoeda();
+
+não existe implementação específica nessa classe, então o método herdado retorna:
+
+false;
+
+Isso é justamente o comportamento que o State organiza.
+
+3. O problema que o State resolve
+Sem State, você poderia colocar tudo dentro de MaquinaDeVendas:
+
+if (estado == AGUARDANDO_MOEDA) {
+    ...
+}
+
+if (estado == MOEDA_INSERIDA) {
+    ...
+}
+
+if (estado == DISPENSANDO_PRODUTO) {
+    ...
+}
+
+E isso começaria a ficar enorme.
+
+Por exemplo:
+
+public boolean selecionarProduto() {
+
+    if (estado == AGUARDANDO_MOEDA) {
+        return false;
+    }
+
+    if (estado == MOEDA_INSERIDA) {
+        estado = DISPENSANDO_PRODUTO;
+        return true;
+    }
+
+    if (estado == DISPENSANDO_PRODUTO) {
+        return false;
+    }
+
+    // etc...
+}
+
+Com vários estados e várias operações, a classe ficaria cheia de if e else.
+
+O State tira essa responsabilidade da máquina.
+
+4. MaquinaEstado
+Essa é a classe base do padrão State:
+
+public abstract class MaquinaEstado {
+
+    public abstract String getEstado();
+
+    public boolean inserirMoeda(MaquinaDeVendas maquina) {
+        return false;
+    }
+
+    public boolean selecionarProduto(MaquinaDeVendas maquina) {
+        return false;
+    }
+
+    public boolean dispensarProduto(MaquinaDeVendas maquina) {
+        return false;
+    }
+
+    public boolean cancelar(MaquinaDeVendas maquina) {
+        return false;
+    }
+}
+
+Ela representa um estado genérico da máquina.
+
+Por que ela é abstract?
+
+Porque você não quer criar:
+
+new MaquinaEstado();
+
+Ela serve como uma estrutura para os estados concretos:
+
+                 MaquinaEstado
+                       ▲
+          ┌────────────┼─────────────┐
+          │            │             │
+          ▼            ▼             ▼
+     Aguardando     Moeda       Dispensando
+       Moeda       Inserida       Produto
+
+E ainda:
+
+          ┌──────────────────────┐
+          │                      │
+          ▼                      ▼
+   Dinheiro Devolvido      Venda Concluída
+
+5. Por que getEstado() é abstract?
+Você colocou:
+
+public abstract String getEstado();
+
+Porque cada estado possui um nome diferente.
+
+Por exemplo:
+
+@Override
+public String getEstado() {
+    return "Aguardando Moeda";
+}
+
+Enquanto outro:
+
+@Override
+public String getEstado() {
+    return "Moeda Inserida";
+}
+
+Então a classe MaquinaEstado diz:
+
+"Todo estado precisa saber informar seu próprio nome."
+
+Mas ela não sabe qual será o nome.
+
+Quem sabe é cada classe concreta.
+
+6. EstadoAguardandoMoeda
+Essa classe representa o estado inicial.
+
+public class EstadoAguardandoMoeda extends MaquinaEstado
+
+O extends significa:
+
+EstadoAguardandoMoeda é um tipo de MaquinaEstado.
+
+Ela implementa:
+
+@Override
+public String getEstado() {
+    return "Aguardando Moeda";
+}
+
+E permite inserir moeda:
+
+@Override
+public boolean inserirMoeda(MaquinaDeVendas maquina) {
+    maquina.setEstado(EstadoMoedaInserida.getInstance());
+    return true;
+}
+
+Essa linha é muito importante:
+
+maquina.setEstado(EstadoMoedaInserida.getInstance());
+
+Ela faz a transição de estado.
+
+Ou seja:
+
+Aguardando Moeda
+       │
+       │ inserirMoeda()
+       ▼
+Moeda Inserida
+
+7. EstadoMoedaInserida
+Essa classe representa:
+
+Moeda Inserida
+
+Ela permite duas coisas.
+
+Selecionar produto
+@Override
+public boolean selecionarProduto(MaquinaDeVendas maquina) {
+    maquina.setEstado(EstadoDispensandoProduto.getInstance());
+    return true;
+}
+
+Transição:
+
+Moeda Inserida
+       │
+       │ selecionarProduto()
+       ▼
+Dispensando Produto
+
+Cancelar
+@Override
+public boolean cancelar(MaquinaDeVendas maquina) {
+    maquina.setEstado(EstadoDinheiroDevolvido.getInstance());
+    return true;
+}
+
+Transição:
+
+Moeda Inserida
+       │
+       │ cancelar()
+       ▼
+Dinheiro Devolvido
+
+8. EstadoDispensandoProduto
+Aqui a máquina está entregando o produto.
+
+@Override
+public boolean dispensarProduto(MaquinaDeVendas maquina) {
+    maquina.setEstado(EstadoVendaConcluida.getInstance());
+    return true;
+}
+
+Então:
+
+Dispensando Produto
+       │
+       │ dispensarProduto()
+       ▼
+Venda Concluída
+
+9. EstadoVendaConcluida
+Depois da venda:
+
+public boolean finalizarFluxo(MaquinaDeVendas maquina) {
+    maquina.setEstado(EstadoAguardandoMoeda.getInstance());
+    return true;
+}
+
+A máquina volta ao início:
+
+Venda Concluída
+       │
+       │ finalizarFluxo()
+       ▼
+Aguardando Moeda
+
+10. EstadoDinheiroDevolvido
+Quando o usuário cancela a compra:
+
+public boolean recolherDinheiro(MaquinaDeVendas maquina) {
+    maquina.setEstado(EstadoAguardandoMoeda.getInstance());
+    return true;
+}
+
+Fluxo:
+
+Moeda Inserida
+       │
+       │ cancelar()
+       ▼
+Dinheiro Devolvido
+       │
+       │ recolherDinheiro()
+       ▼
+Aguardando Moeda
+
+11. E o Singleton?
+Você também está usando uma ideia de Singleton dentro dos estados.
+
+Por exemplo:
+
+private static EstadoAguardandoMoeda instance =
+        new EstadoAguardandoMoeda();
+
+E:
+
+public static EstadoAguardandoMoeda getInstance() {
+    return instance;
+}
+
+Além disso, o construtor é privado:
+
+private EstadoAguardandoMoeda() {};
+
+Isso impede que outra classe faça:
+
+new EstadoAguardandoMoeda();
+
+Ela deve utilizar:
+
+EstadoAguardandoMoeda.getInstance();
+
+A ideia é ter uma única instância daquele estado sendo reutilizada.
+
+12. MaquinaDeVendas
+Essa é a classe principal do State.
+
+Ela possui:
+
+private MaquinaEstado estado;
+
+Isso significa:
+
+A máquina possui um estado atual.
+
+Inicialmente:
+
+public MaquinaDeVendas() {
+    this.estado = EstadoAguardandoMoeda.getInstance();
+}
+
+Portanto, quando a máquina nasce:
+
+MaquinaDeVendas
+       │
+       ▼
+Aguardando Moeda
+
+13. Como a MaquinaDeVendas usa o State?
+Veja:
+
+public boolean inserirMoeda() {
+    return this.estado.inserirMoeda(this);
+}
+
+A máquina não pergunta:
+
+"Em qual estado estou?"
+
+Ela simplesmente delega a operação para o estado atual.
+
+Por exemplo, se estiver em:
+
+EstadoAguardandoMoeda
+
+vai executar:
+
+EstadoAguardandoMoeda.inserirMoeda()
+
+Se estiver em outro estado, será executado o comportamento daquele estado.
+
+Isso é uma das principais características do padrão State.
+
+14. Agora entra o Observer
+O State resolve uma coisa:
+
+Como a máquina muda de comportamento dependendo do estado?
+
+O Observer resolve outra:
+
+Como avisar outros objetos quando o estado mudar?
+
+Você tem:
+
+private List<Observer> observadores = new ArrayList<>();
+
+A máquina mantém uma lista de objetos interessados nas mudanças.
+
+No seu projeto existem:
+
+MaquinaDeVendas
+       │
+       ├── VisorDigital
+       │
+       └── SistemaMonitoramento
+
+15. Por que Observer é uma interface?
+Você criou:
+
+public interface Observer {
+    void update(String mensagem);
+}
+
+A interface define um contrato.
+
+Ela está dizendo:
+
+Qualquer objeto que queira ser um Observer precisa possuir um método update.
+
+Por exemplo:
+
+public class VisorDigital implements Observer
+
+e:
+
+public class SistemaMonitoramento implements Observer
+
+Como ambos implementam Observer, ambos são obrigados a implementar:
+
+public void update(String mensagem)
+
+16. Por que não fazer uma classe Observer?
+Porque VisorDigital e SistemaMonitoramento são objetos diferentes e podem ter comportamentos completamente diferentes.
+
+O visor faz:
+
+System.out.println("[VISOR DA MÁQUINA]: " + mensagem);
+
+Enquanto o sistema de monitoramento poderia fazer:
+
+System.out.println("[SISTEMA DE MONITORAMENTO]: " + mensagem);
+
+O que eles têm em comum?
+
+A capacidade de receber uma notificação:
+
+update(String mensagem)
+
+Por isso a interface é adequada.
+
+Ela estabelece o contrato sem obrigar os observers a terem uma implementação específica.
+
+17. VisorDigital
+Seu código:
+
+public class VisorDigital implements Observer {
+
+    @Override
+    public void update(String mensagem) {
+        System.out.println("[VISOR DA MÁQUINA]: " + mensagem);
+    }
+}
+
+Ele é um Observer.
+
+Quando receber:
+
+Moeda Inserida
+
+vai mostrar:
+
+[VISOR DA MÁQUINA]: Moeda Inserida
+
+18. SistemaMonitoramento
+Ele também implementa:
+
+Observer
+
+Então ele recebe as mesmas notificações.
+
+A diferença é que ele pode fazer algo diferente com a informação.
+
+Isso é uma das vantagens do Observer.
+
+Você pode ter:
+
+             Observer
+                ▲
+        ┌───────┴────────┐
+        │                │
+        │                │
+ VisorDigital   SistemaMonitoramento
+
+E futuramente poderia adicionar:
+
+BancoDeDados
+Email
+Aplicativo
+Log
+Dashboard
+
+Todos poderiam implementar:
+
+Observer
+
+sem precisar alterar a MaquinaDeVendas.
+
+19. Como a notificação acontece?
+Na MaquinaDeVendas:
+
+private void notificarObservadores() {
+    for (Observer obs : observadores) {
+        obs.update(this.getNomeEstado());
+    }
+}
+
+Aqui acontece o Observer.
+
+Primeiro:
+
+for (Observer obs : observadores)
+
+percorre todos os observers.
+
+Depois:
+
+obs.update(...)
+
+manda a mensagem para cada um.
+
+Por exemplo:
+
+MaquinaDeVendas
+       │
+       │ update("Moeda Inserida")
+       ├──────────────────────► VisorDigital
+       │
+       │ update("Moeda Inserida")
+       └──────────────────────► SistemaMonitoramento
+
+20. Quando a notificação acontece?
+Aqui:
+
+public void setEstado(MaquinaEstado estado) {
+    this.estado = estado;
+    this.notificarObservadores();
+}
+
+Isso é muito importante.
+
+Quando o estado muda:
+
+this.estado = estado;
+
+a máquina imediatamente chama:
+
+this.notificarObservadores();
+
+Então:
+
+Estado mudou
+     ↓
+setEstado()
+     ↓
+notificarObservadores()
+     ↓
+Observer 1
+Observer 2
+Observer 3...
+
+21. Como State e Observer trabalham juntos?
+Essa é provavelmente a parte mais importante para você explicar na apresentação.
+
+Os dois padrões têm responsabilidades diferentes.
+
+State
+Cuida do:
+
+comportamento da máquina.
+
+Observer
+Cuida da:
+
+comunicação das mudanças.
+
+Por exemplo:
+
+maquina.inserirMoeda();
+
+Primeiro: State
+A máquina chama:
+
+this.estado.inserirMoeda(this);
+
+O estado atual é:
+
+EstadoAguardandoMoeda
+
+Então ele executa:
+
+maquina.setEstado(
+    EstadoMoedaInserida.getInstance()
+);
+
+A máquina muda para:
+
+Moeda Inserida
+
+Segundo: Observer
+Dentro de setEstado():
+
+this.notificarObservadores();
+
+Então:
+
+VisorDigital
+      ↑
+      │ "Moeda Inserida"
+      │
+MaquinaDeVendas
+      │
+      │ "Moeda Inserida"
+      ↓
+SistemaMonitoramento
+
+Assim os dois padrões trabalham juntos.
+
+22. Fluxo completo do seu Main
+Seu Main faz:
+
+MaquinaDeVendas maquina = new MaquinaDeVendas();
+
+Estado inicial:
+
+Aguardando Moeda
+
+Depois:
+
+Observer visor = new VisorDigital();
+Observer sistema = new SistemaMonitoramento();
+
+Você criou dois observers.
+
+Depois:
+
+maquina.addObserver(visor);
+maquina.addObserver(sistema);
+
+A máquina passa a conhecer os dois observers.
+
+Depois:
+
+maquina.inserirMoeda();
+
+State:
+
+Aguardando Moeda
+       ↓
+Moeda Inserida
+
+Observer:
+
+[VISOR DA MÁQUINA]: Moeda Inserida
+
+[SISTEMA DE MONITORAMENTO]: Moeda Inserida
+
+Depois:
+
+maquina.selecionarProduto();
+
+State:
+
+Moeda Inserida
+       ↓
+Dispensando Produto
+
+Observer:
+
+[VISOR DA MÁQUINA]: Dispensando Produto
+
+[SISTEMA DE MONITORAMENTO]: Dispensando Produto
+
+23. E os testes?
+Seus testes estão verificando justamente esse comportamento.
+
+Por exemplo:
+
+@Test
+void deveTransicionarParaMoedaInseridaAoInserirMoeda()
+
+Verifica se:
+
+Aguardando Moeda
+       ↓
+Moeda Inserida
+
+aconteceu corretamente.
+
+E também verifica o Observer:
+
+assertEquals(1, mockObserver.getNotificacoes().size());
+
+Ou seja:
+
+O Observer recebeu uma notificação?
+
+Depois:
+
+assertEquals(
+    "Moeda Inserida",
+    mockObserver.getNotificacoes().get(0)
+);
+
+Verifica:
+
+A mensagem recebida foi a correta?
+
+24. O MockObserver
+No teste você criou:
+
+private static class MockObserver implements Observer
+
+Ele também é um Observer.
+
+Mas em vez de imprimir na tela, ele guarda as mensagens:
+
+private final List<String> notificacoes = new ArrayList<>();
+
+Quando recebe:
+
+@Override
+public void update(String mensagem) {
+    notificacoes.add(mensagem);
+}
+
+ele guarda a mensagem.
+
+Isso permite que o teste verifique:
+
+assertEquals("Moeda Inserida",
+             mockObserver.getNotificacoes().get(0));
+
+É uma maneira muito boa de testar o Observer sem depender do System.out.println.
+
+25. Resumindo seu projeto
+Você pode explicar seu projeto assim:
+
+O sistema simula uma máquina de vendas utilizando os padrões State e Observer. O State é responsável por representar os diferentes estados da máquina e controlar quais operações são permitidas em cada estado. A classe MaquinaEstado define o comportamento comum, enquanto as classes EstadoAguardandoMoeda, EstadoMoedaInserida, EstadoDispensandoProduto, EstadoDinheiroDevolvido e EstadoVendaConcluida implementam os comportamentos específicos e as transições entre estados.
+
+O Observer é utilizado para notificar objetos interessados sempre que o estado da máquina muda. Observer é uma interface porque define um contrato comum para diferentes tipos de observadores, como VisorDigital e SistemaMonitoramento, permitindo que cada um trate a notificação da sua própria maneira.
+
+Dessa forma, o State cuida da mudança de comportamento da máquina, enquanto o Observer cuida da comunicação dessas mudanças para os objetos interessados.
+
+Em uma frase para decorar
+STATE    = "Qual comportamento a máquina deve ter agora?"
+OBSERVER = "Quem precisa saber que a máquina mudou?"
+
+E no seu projeto:
+
+                    MaquinaDeVendas
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+           STATE                      OBSERVER
+             │                           │
+             ▼                           ▼
+      MaquinaEstado                  Observer
+             │                           │
+      ┌──────┼──────┐              ┌─────┴─────┐
+      ▼      ▼      ▼              ▼           ▼
+   Estados...                  Visor       Sistema
+                               Digital    Monitoramento
+
+Essa é a relação central entre os dois padrões no seu código.
+
+
